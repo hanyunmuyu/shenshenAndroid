@@ -1,0 +1,49 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "com.example.administrator.myapplication"
+        minSdkVersion 23
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    // 后面需要用到
+    //https://github.com/scwang90/SmartRefreshLayout
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.5.1'
+    implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.5.1'
+    //没有使用特殊Header，可以不加这行
+    //noinspection GradleCompatible
+    implementation 'com.android.support:appcompat-v7:25.3.1'
+    //版本 23以上（必须）
+    //noinspection GradleCompatible
+    implementation 'com.android.support:design:24.1.1'
+    //版本随意（非必须，引用可以解决无法预览问题）
+    //https://github.com/youth5201314/banner
+    implementation 'com.youth.banner:banner:1.4.10'
+    //https://github.com/yipianfengye/android-zxingLibrary
+    implementation 'cn.yipianfengye.android:zxing-library:2.2'
+    //最新版本
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    //https://github.com/crazycodeboy/TakePhoto
+    //    implementation 'com.jph.takephoto:takephoto_library:4.1.0'
+    //noinspection GradleCompatible
+}
