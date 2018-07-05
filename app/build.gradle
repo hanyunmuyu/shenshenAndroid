@@ -46,4 +46,5 @@ dependencies {
     //https://github.com/crazycodeboy/TakePhoto
     //    implementation 'com.jph.takephoto:takephoto_library:4.1.0'
     //noinspection GradleCompatible
+    implementation 'com.jakewharton:butterknife:8.8.1'
 }

@@ -10,14 +10,22 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.administrator.myapplication.R;
+import com.example.administrator.myapplication.school.ClubFragment;
+import com.example.administrator.myapplication.school.HomeFragment;
+import com.example.administrator.myapplication.school.adapter.HomeAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class SchoolFragment extends Fragment {
-
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    private HomeAdapter homeAdapter;
+    private List<Fragment> fragmentList;
+    private String[] titles = {"热门", "校园", "社团"};
 
     public SchoolFragment() {
         // Required empty public constructor
@@ -31,11 +39,17 @@ public class SchoolFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_school, container, false);
         tabLayout = view.findViewById(R.id.tl);
+        viewPager = view.findViewById(R.id.vp);
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
 
-        tabLayout.addTab(tabLayout.newTab().setText("热门"));
-        tabLayout.addTab(tabLayout.newTab().setText("高校"));
-        tabLayout.addTab(tabLayout.newTab().setText("社团"));
+        fragmentList = new ArrayList<>();
+        fragmentList.add(new HomeFragment());
+        fragmentList.add(new com.example.administrator.myapplication.school.SchoolFragment());
+        fragmentList.add(new ClubFragment());
+
+        homeAdapter = new HomeAdapter(getChildFragmentManager(), fragmentList, titles);
+        viewPager.setAdapter(homeAdapter);
+
         tabLayout.setupWithViewPager(viewPager);
         return view;
     }
