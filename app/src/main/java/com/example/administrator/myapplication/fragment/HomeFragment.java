@@ -17,6 +17,7 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.youth.banner.Banner;
+import com.youth.banner.BannerConfig;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,18 +57,12 @@ public class HomeFragment extends Fragment {
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
-                if (msg.what == 1) {
-//                    images.add("https://img.zecaifu.com//UF/Uploads/Ad/8c136fcdedf1c7f7bf55afca8a562192.jpg");
-//                    images.add("https://img.zecaifu.com//UF/Uploads/Ad/8c136fcdedf1c7f7bf55afca8a562192.jpg");
-//                    images.add("https://img.zecaifu.com//UF/Uploads/Ad/8c136fcdedf1c7f7bf55afca8a562192.jpg");
-                    if (banner != null) {
-                        banner.setImageLoader(new GlideImageLoader());
-                        //设置图片集合
-                        banner.setImages((List<?>) msg.obj);
-                        banner.start();
-                    }
-                    refreshLayout.finishRefresh(100);
-                }
+                banner.setBannerStyle(BannerConfig.CENTER);
+                banner.setImageLoader(new GlideImageLoader());
+                //设置图片集合
+                banner.setImages((List<?>) msg.obj);
+                banner.start();
+                refreshLayout.finishRefresh(100);
             }
         };
         retrofit = new Retrofit.Builder()
