@@ -40,11 +40,13 @@ public class HomeFragment extends Fragment {
         for (int i = 0; i < 16; i++) {
             Map<String, Object> map = new ArrayMap<>();
             map.put("pic", "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1530787601738&di=fadc5579bcd1e747db056df10cea82d4&imgtype=0&src=http%3A%2F%2Fimg.pconline.com.cn%2Fimages%2Fupload%2Fupc%2Ftx%2Fitbbs%2F1408%2F18%2Fc23%2F37570958_1408354006609_mthumb.jpg");
+            map.put("addTime", "2018-07-05 23:19");
             map.put("name", "PLMM");
             map.put("title", "这个MM真靓");
             map.put("content", "这样的MM有谁喜欢呢？送你一打！哈哈哈哈");
             map.put("favoriteNumber", 100);
             map.put("collectionNumber", 1000);
+            map.put("commentNumber", 1000);
             mapArrayList.add(map);
         }
         HomeRecyclerViewAdapter homeRecyclerViewAdapter = new HomeRecyclerViewAdapter(mapArrayList, getContext());
