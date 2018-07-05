@@ -56,12 +56,18 @@ public class HomeFragment extends Fragment {
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
-                banner.setImageLoader(new GlideImageLoader());
-                //设置图片集合
-                banner.setImages((List<?>) msg.obj);
-                //banner设置方法全部调用完毕时最后调用
-                banner.start();
-                refreshLayout.finishRefresh(100);
+                if (msg.what == 1) {
+//                    images.add("https://img.zecaifu.com//UF/Uploads/Ad/8c136fcdedf1c7f7bf55afca8a562192.jpg");
+//                    images.add("https://img.zecaifu.com//UF/Uploads/Ad/8c136fcdedf1c7f7bf55afca8a562192.jpg");
+//                    images.add("https://img.zecaifu.com//UF/Uploads/Ad/8c136fcdedf1c7f7bf55afca8a562192.jpg");
+                    if (banner != null) {
+                        banner.setImageLoader(new GlideImageLoader());
+                        //设置图片集合
+                        banner.setImages((List<?>) msg.obj);
+                        banner.start();
+                    }
+                    refreshLayout.finishRefresh(100);
+                }
             }
         };
         retrofit = new Retrofit.Builder()
@@ -104,6 +110,7 @@ public class HomeFragment extends Fragment {
                     public void run() {
                         Message message = Message.obtain();
                         message.obj = images;
+                        message.what = 1;
                         handler.sendMessage(message);
                     }
                 }).start();
