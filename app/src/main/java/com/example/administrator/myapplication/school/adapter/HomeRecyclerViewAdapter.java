@@ -15,9 +15,6 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerViewAdapter.MyViewHolder> {
     private List<Map<String, Object>> mapArrayList;
     private Context context;

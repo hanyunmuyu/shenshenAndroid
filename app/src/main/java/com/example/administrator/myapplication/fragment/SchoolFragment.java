@@ -43,8 +43,8 @@ public class SchoolFragment extends Fragment {
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
 
         fragmentList = new ArrayList<>();
-        fragmentList.add(new HomeFragment());
         fragmentList.add(new com.example.administrator.myapplication.school.SchoolFragment());
+        fragmentList.add(new HomeFragment());
         fragmentList.add(new ClubFragment());
 
         homeAdapter = new HomeAdapter(getChildFragmentManager(), fragmentList, titles);

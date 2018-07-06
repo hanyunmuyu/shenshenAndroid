@@ -5,9 +5,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.administrator.myapplication.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 import java.util.Map;
@@ -33,7 +35,9 @@ public class SchoolRecyclerViewAdapter extends RecyclerView.Adapter<SchoolRecycl
     @Override
     public void onBindViewHolder(SchoolViewHolder holder, int position) {
         Map<String, Object> map = mapArrayList.get(position);
-        holder.textView.setText((String) map.get("title"));
+        Picasso.get().load((String) map.get("logo")).into(holder.logo);
+        holder.schoolName.setText((String) map.get("schoolName"));
+        holder.description.setText((String) map.get("description"));
     }
 
     @Override
@@ -42,11 +46,16 @@ public class SchoolRecyclerViewAdapter extends RecyclerView.Adapter<SchoolRecycl
     }
 
     public class SchoolViewHolder extends RecyclerView.ViewHolder {
-        public TextView textView;
+        public TextView schoolName;
+        public TextView favoriteNumber;
+        public TextView description;
+        public ImageView logo;
 
         public SchoolViewHolder(View itemView) {
             super(itemView);
-            textView = itemView.findViewById(R.id.tv);
+            schoolName = itemView.findViewById(R.id.schoolName);
+            description = itemView.findViewById(R.id.description);
+            logo = itemView.findViewById(R.id.logo);
         }
     }
 }

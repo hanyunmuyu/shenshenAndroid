@@ -3,6 +3,7 @@ package com.example.administrator.myapplication.school;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -36,14 +37,17 @@ public class SchoolFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_school_school, container, false);
         recyclerView = view.findViewById(R.id.rv);
 
-        List<Map<String, Object>> mapArrayList=new ArrayList<>();
-        for (int i=0;i<16;i++) {
+        List<Map<String, Object>> mapArrayList = new ArrayList<>();
+        for (int i = 0; i < 16; i++) {
             Map<String, Object> map = new HashMap<>();
-            map.put("title", "今天天气不错！一起去踏青！");
+            map.put("schoolName", "河南工业大学");
+            map.put("description", "河南工业大学简介");
+            map.put("logo", "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1531464722&di=326def83e48395c00d068bd9049d9bca&imgtype=jpg&er=1&src=http%3A%2F%2Fcollege.koolearn.com%2Fupload%2Fschool%2Fkaoyan%2F10463.jpg");
+            map.put("favoriteNumber", 10000);
             mapArrayList.add(map);
         }
         schoolRecyclerViewAdapter = new SchoolRecyclerViewAdapter(mapArrayList, getContext());
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
         recyclerView.setAdapter(schoolRecyclerViewAdapter);
         return view;
     }
