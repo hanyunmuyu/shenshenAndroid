@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.administrator.myapplication.R;
+import com.example.administrator.myapplication.lib.CircleTransform;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -35,7 +36,7 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Map<String, Object> map = mapArrayList.get(position);
-        Picasso.get().load((String) map.get("pic")).into(holder.pic);
+        Picasso.get().load((String) map.get("pic")).transform(new CircleTransform()).into(holder.pic);
         holder.name.setText((String) map.get("name"));
         holder.addTime.setText((String) map.get("addTime"));
         holder.title.setText((String) map.get("title"));
