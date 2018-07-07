@@ -38,6 +38,8 @@ public class SchoolRecyclerViewAdapter extends RecyclerView.Adapter<SchoolRecycl
         Picasso.get().load((String) map.get("logo")).into(holder.logo);
         holder.schoolName.setText((String) map.get("schoolName"));
         holder.description.setText((String) map.get("description"));
+        holder.favoriteNumber.setText(String.valueOf(map.get("favoriteNumber")));
+        holder.clubNumber.setText(String.valueOf(map.get("clubNumber")));
     }
 
     @Override
@@ -48,6 +50,7 @@ public class SchoolRecyclerViewAdapter extends RecyclerView.Adapter<SchoolRecycl
     public class SchoolViewHolder extends RecyclerView.ViewHolder {
         public TextView schoolName;
         public TextView favoriteNumber;
+        public TextView clubNumber;
         public TextView description;
         public ImageView logo;
 
@@ -56,6 +59,9 @@ public class SchoolRecyclerViewAdapter extends RecyclerView.Adapter<SchoolRecycl
             schoolName = itemView.findViewById(R.id.schoolName);
             description = itemView.findViewById(R.id.description);
             logo = itemView.findViewById(R.id.logo);
+            favoriteNumber = itemView.findViewById(R.id.favoriteNumber);
+            clubNumber = itemView.findViewById(R.id.clubNumber);
+
         }
     }
 }

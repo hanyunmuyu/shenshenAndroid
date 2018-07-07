@@ -43,7 +43,8 @@ public class SchoolFragment extends Fragment {
             map.put("schoolName", "河南工业大学");
             map.put("description", "河南工业大学简介");
             map.put("logo", "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1531464722&di=326def83e48395c00d068bd9049d9bca&imgtype=jpg&er=1&src=http%3A%2F%2Fcollege.koolearn.com%2Fupload%2Fschool%2Fkaoyan%2F10463.jpg");
-            map.put("favoriteNumber", 10000);
+            map.put("favoriteNumber", 100000);
+            map.put("clubNumber", 100);
             mapArrayList.add(map);
         }
         schoolRecyclerViewAdapter = new SchoolRecyclerViewAdapter(mapArrayList, getContext());

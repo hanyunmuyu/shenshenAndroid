@@ -22,41 +22,54 @@
         android:layout_height="wrap_content"
         android:textAlignment="center" />
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp">
+        android:layout_margin="10dp"
+        android:orientation="horizontal">
 
         <RelativeLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true">
+            android:layout_weight="1">
 
             <TextView
+                android:id="@+id/favoriteTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginRight="2dp"
                 android:text="关注" />
 
             <TextView
+                android:id="@+id/favoriteNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="100" />
+                android:layout_toRightOf="@+id/favoriteTitle" />
         </RelativeLayout>
 
         <RelativeLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true">
+            android:layout_weight="1">
 
             <TextView
+                android:id="@+id/clubNumberTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginRight="2dp"
                 android:text="社团" />
 
             <TextView
+                android:id="@+id/clubNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_toRightOf="@+id/clubNumberTitle"
                 android:text="100" />
         </RelativeLayout>
-    </RelativeLayout>
+    </LinearLayout>
 </LinearLayout>
