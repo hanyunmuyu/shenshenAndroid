@@ -10,8 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.administrator.myapplication.GlideImageLoader;
 import com.example.administrator.myapplication.R;
 import com.example.administrator.myapplication.school.adapter.HomeRecyclerViewAdapter;
+import com.youth.banner.Banner;
+import com.youth.banner.BannerConfig;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +25,8 @@ import java.util.Map;
  */
 public class HomeFragment extends Fragment {
     private RecyclerView recyclerView;
+    private Banner banner;
+
 
     public HomeFragment() {
         // Required empty public constructor
@@ -33,6 +38,20 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_school_home, container, false);
+
+
+        banner = (Banner) view.findViewById(R.id.banner);
+        ArrayList<String> images = new ArrayList<>();
+        images.add("https://img.zecaifu.com//UF/Uploads/Ad/8c136fcdedf1c7f7bf55afca8a562192.jpg");
+        images.add("https://img.zecaifu.com//UF/Uploads/Ad/8c136fcdedf1c7f7bf55afca8a562192.jpg");
+        images.add("https://img.zecaifu.com//UF/Uploads/Ad/8c136fcdedf1c7f7bf55afca8a562192.jpg");
+        banner.setBannerStyle(BannerConfig.CENTER);
+        banner.setImageLoader(new GlideImageLoader());
+        //设置图片集合
+        banner.setImages(images);
+        banner.start();
+
+
         recyclerView = view.findViewById(R.id.rv);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 

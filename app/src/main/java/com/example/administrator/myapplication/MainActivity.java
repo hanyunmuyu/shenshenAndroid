@@ -23,7 +23,7 @@ import java.util.List;
 public class MainActivity extends FragmentActivity {
 
     private LinearLayout bottom;
-    private int position = 2;
+    private int position = 1;
     private List<Fragment> fragmentList;
 
     @Override
@@ -38,7 +38,7 @@ public class MainActivity extends FragmentActivity {
     private void initFragment() {
         fragmentList = new ArrayList<>();
         fragmentList.add(new ExploreFragment());
-        fragmentList.add(new HomeFragment());
+//        fragmentList.add(new HomeFragment());
         fragmentList.add(new SchoolFragment());
         fragmentList.add(new MessageFragment());
         fragmentList.add(new MeFragment());
