@@ -41,14 +41,14 @@ public class SchoolFragment extends Fragment {
         for (int i = 0; i < 16; i++) {
             Map<String, Object> map = new HashMap<>();
             map.put("schoolName", "河南工业大学");
-            map.put("description", "河南工业大学简介");
+            map.put("description", "河南工业大学简介河南工业大学简介河南工业大学简介河南工业大学简介河南工业大学简介河南工业大学简介");
             map.put("logo", "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1531464722&di=326def83e48395c00d068bd9049d9bca&imgtype=jpg&er=1&src=http%3A%2F%2Fcollege.koolearn.com%2Fupload%2Fschool%2Fkaoyan%2F10463.jpg");
             map.put("favoriteNumber", 100000);
             map.put("clubNumber", 100);
             mapArrayList.add(map);
         }
         schoolRecyclerViewAdapter = new SchoolRecyclerViewAdapter(mapArrayList, getContext());
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         recyclerView.setAdapter(schoolRecyclerViewAdapter);
         return view;
     }

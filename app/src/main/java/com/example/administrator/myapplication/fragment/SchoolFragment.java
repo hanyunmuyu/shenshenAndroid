@@ -25,7 +25,7 @@ public class SchoolFragment extends Fragment {
     private ViewPager viewPager;
     private HomeAdapter homeAdapter;
     private List<Fragment> fragmentList;
-    private String[] titles = {"热门", "校园", "社团"};
+    private String[] titles = {"推荐", "校园", "社团"};
 
     public SchoolFragment() {
         // Required empty public constructor
