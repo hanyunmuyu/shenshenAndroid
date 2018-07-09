@@ -29,7 +29,7 @@ public class MainActivity extends FragmentActivity {
 
     private LinearLayout bottom;
     private int position = 1;
-    private int tmpPosition = 1;
+    private int tmpPosition;
     private ExploreFragment exploreFragment;
     private HomeFragment homeFragment;
     private SchoolFragment schoolFragment;

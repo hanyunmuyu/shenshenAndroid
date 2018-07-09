@@ -9,9 +9,14 @@ import android.util.ArrayMap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.example.administrator.myapplication.BaseFragment;
 import com.example.administrator.myapplication.GlideImageLoader;
 import com.example.administrator.myapplication.R;
+import com.example.administrator.myapplication.ResponseString;
+import com.example.administrator.myapplication.api.Api;
+import com.example.administrator.myapplication.bean.HomeBean;
 import com.example.administrator.myapplication.school.adapter.HomeRecyclerViewAdapter;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -20,17 +25,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends BaseFragment {
     private RecyclerView recyclerView;
     private Banner banner;
-
-
-    public HomeFragment() {
-        // Required empty public constructor
-    }
+    private ArrayList<String> stringList;
+    public Retrofit retrofit;
+    public Api api;
 
 
     @Override
@@ -38,18 +47,35 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_school_home, container, false);
-
-
+        stringList = new ArrayList<>();
         banner = (Banner) view.findViewById(R.id.banner);
-        ArrayList<String> images = new ArrayList<>();
-        images.add("https://img.zecaifu.com//UF/Uploads/Ad/8c136fcdedf1c7f7bf55afca8a562192.jpg");
-        images.add("https://img.zecaifu.com//UF/Uploads/Ad/8c136fcdedf1c7f7bf55afca8a562192.jpg");
-        images.add("https://img.zecaifu.com//UF/Uploads/Ad/8c136fcdedf1c7f7bf55afca8a562192.jpg");
-        banner.setBannerStyle(BannerConfig.CENTER);
-        banner.setImageLoader(new GlideImageLoader());
-        //设置图片集合
-        banner.setImages(images);
-        banner.start();
+
+
+        retrofit = new Retrofit.Builder()
+                .baseUrl("https://api.zecaifu.com/api/v2/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        api = retrofit.create(Api.class);
+        Call<HomeBean> call = api.getHomeData();
+        call.enqueue(new Callback<HomeBean>() {
+            @Override
+            public void onResponse(Call<HomeBean> call, Response<HomeBean> response) {
+                HomeBean homeBean = response.body();
+                for (HomeBean.DataBean.AdContentBean adContentBean : homeBean.getData().getAdContent()) {
+                    stringList.add(adContentBean.getImg());
+                }
+                banner.setBannerStyle(BannerConfig.CENTER);
+                banner.setImageLoader(new GlideImageLoader());
+                //设置图片集合
+                banner.setImages(stringList);
+                banner.start();
+            }
+
+            @Override
+            public void onFailure(Call<HomeBean> call, Throwable t) {
+
+            }
+        });
 
 
         recyclerView = view.findViewById(R.id.rv);
