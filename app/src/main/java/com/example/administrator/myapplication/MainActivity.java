@@ -35,6 +35,7 @@ public class MainActivity extends FragmentActivity {
     private SchoolFragment schoolFragment;
     private MeFragment meFragment;
     private SharedPreferences sharedPreferences;
+    private MessageFragment messageFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,19 +80,19 @@ public class MainActivity extends FragmentActivity {
                 }
                 break;
             case 1:
-                if (homeFragment == null) {
-                    homeFragment = new HomeFragment();
-                    fragmentTransaction.add(R.id.fg, homeFragment);
-                } else {
-                    fragmentTransaction.show(homeFragment);
-                }
-                break;
-            case 2:
                 if (schoolFragment == null) {
                     schoolFragment = new SchoolFragment();
                     fragmentTransaction.add(R.id.fg, schoolFragment);
                 } else {
                     fragmentTransaction.show(schoolFragment);
+                }
+                break;
+            case 2:
+                if (messageFragment == null) {
+                    messageFragment = new MessageFragment();
+                    fragmentTransaction.add(R.id.fg, messageFragment);
+                } else {
+                    fragmentTransaction.show(messageFragment);
                 }
                 break;
             case 3:
@@ -142,9 +143,6 @@ public class MainActivity extends FragmentActivity {
     private boolean checkToken() {
         String token = sharedPreferences.getString("token", null);
         if (token == null) {
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("token", "123456");
-            editor.commit();
             return false;
         }
         return true;
