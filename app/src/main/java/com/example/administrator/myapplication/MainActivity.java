@@ -36,6 +36,8 @@ public class MainActivity extends FragmentActivity {
     private MeFragment meFragment;
     private SharedPreferences sharedPreferences;
     private MessageFragment messageFragment;
+    private FragmentManager fragmentManager;
+    private FragmentTransaction fragmentTransaction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,10 +50,8 @@ public class MainActivity extends FragmentActivity {
     }
 
     private void init() {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        hiddenFragment(fragmentTransaction);
-        showFragment(fragmentTransaction);
+        fragmentManager = getSupportFragmentManager();
+        showFragment();
     }
 
     private void hiddenFragment(FragmentTransaction fragmentTransaction) {
@@ -64,12 +64,17 @@ public class MainActivity extends FragmentActivity {
         if (schoolFragment != null) {
             fragmentTransaction.hide(schoolFragment);
         }
+        if (messageFragment != null) {
+            fragmentTransaction.hide(messageFragment);
+        }
         if (meFragment != null) {
             fragmentTransaction.hide(meFragment);
         }
     }
 
-    private void showFragment(FragmentTransaction fragmentTransaction) {
+    private void showFragment() {
+        fragmentTransaction = fragmentManager.beginTransaction();
+        hiddenFragment(fragmentTransaction);
         switch (position) {
             case 0:
                 if (exploreFragment == null) {
@@ -150,7 +155,8 @@ public class MainActivity extends FragmentActivity {
 
     public void logout() {
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.clear().commit();
+        editor.clear();
+        editor.commit();
         startActivity(new Intent(this, LoginActivity.class));
         position = tmpPosition;
         initView();
