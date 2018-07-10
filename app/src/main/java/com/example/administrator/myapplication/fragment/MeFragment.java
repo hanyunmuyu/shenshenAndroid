@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.administrator.myapplication.MainActivity;
 import com.example.administrator.myapplication.R;
+import com.example.administrator.myapplication.activity.QrCodeActivity;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 
 import butterknife.BindView;
@@ -28,7 +29,6 @@ import butterknife.OnClick;
 public class MeFragment extends Fragment {
     Button logout;
     private ImageView imageView;
-    private ImageView iv;
 
     public MeFragment() {
         // Required empty public constructor
@@ -46,12 +46,10 @@ public class MeFragment extends Fragment {
         ButterKnife.bind(this, view);
 
         imageView = view.findViewById(R.id.capture);
-        iv = view.findViewById(R.id.iv);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                iv.setImageBitmap(CodeUtils.createImage("寒云", 400, 400, BitmapFactory.decodeResource(getResources(), R.mipmap.avatar)));
-                iv.setVisibility(1);
+                startActivity(new Intent(getContext(), QrCodeActivity.class));
             }
         });
         return view;
