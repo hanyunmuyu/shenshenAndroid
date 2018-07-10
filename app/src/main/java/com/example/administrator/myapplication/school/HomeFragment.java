@@ -2,6 +2,7 @@ package com.example.administrator.myapplication.school;
 
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,6 +19,9 @@ import com.example.administrator.myapplication.ResponseString;
 import com.example.administrator.myapplication.api.Api;
 import com.example.administrator.myapplication.bean.HomeBean;
 import com.example.administrator.myapplication.school.adapter.HomeRecyclerViewAdapter;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 
@@ -40,6 +44,8 @@ public class HomeFragment extends BaseFragment {
     private ArrayList<String> stringList;
     public Retrofit retrofit;
     public Api api;
+    private Integer page = 1;
+    private RefreshLayout refreshLayout;
 
 
     @Override
@@ -49,34 +55,28 @@ public class HomeFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.fragment_school_home, container, false);
         stringList = new ArrayList<>();
         banner = (Banner) view.findViewById(R.id.banner);
-
+        refreshLayout = (RefreshLayout) view.findViewById(R.id.refreshLayout);
 
         retrofit = new Retrofit.Builder()
                 .baseUrl("https://api.zecaifu.com/api/v2/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         api = retrofit.create(Api.class);
-        Call<HomeBean> call = api.getHomeData();
-        call.enqueue(new Callback<HomeBean>() {
-            @Override
-            public void onResponse(Call<HomeBean> call, Response<HomeBean> response) {
-                HomeBean homeBean = response.body();
-                for (HomeBean.DataBean.AdContentBean adContentBean : homeBean.getData().getAdContent()) {
-                    stringList.add(adContentBean.getImg());
-                }
-                banner.setBannerStyle(BannerConfig.CENTER);
-                banner.setImageLoader(new GlideImageLoader());
-                //设置图片集合
-                banner.setImages(stringList);
-                banner.start();
-            }
 
+        initView();
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
-            public void onFailure(Call<HomeBean> call, Throwable t) {
-
+            public void onRefresh(RefreshLayout r) {
+                initView();
             }
         });
-
+        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                loadMore();
+                refreshLayout.finishLoadMore(100);
+            }
+        });
 
         recyclerView = view.findViewById(R.id.rv);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -100,4 +100,46 @@ public class HomeFragment extends BaseFragment {
         return view;
     }
 
+    private void initView() {
+        page = 1;
+        Toast.makeText(getContext(), page + "", Toast.LENGTH_SHORT).show();
+        Call<HomeBean> call = api.getHomeData(page);
+        call.enqueue(new Callback<HomeBean>() {
+            @Override
+            public void onResponse(Call<HomeBean> call, Response<HomeBean> response) {
+                HomeBean homeBean = response.body();
+                for (HomeBean.DataBean.AdContentBean adContentBean : homeBean.getData().getAdContent()) {
+                    stringList.add(adContentBean.getImg());
+                }
+                banner.setBannerStyle(BannerConfig.CENTER);
+                banner.setImageLoader(new GlideImageLoader());
+                //设置图片集合
+                banner.setImages(stringList);
+                banner.start();
+                refreshLayout.finishRefresh();
+            }
+
+            @Override
+            public void onFailure(Call<HomeBean> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void loadMore() {
+        page++;
+        Toast.makeText(getContext(), page + "", Toast.LENGTH_SHORT).show();
+        Call<HomeBean> call = api.getHomeData(page);
+        call.enqueue(new Callback<HomeBean>() {
+            @Override
+            public void onResponse(Call<HomeBean> call, Response<HomeBean> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<HomeBean> call, Throwable t) {
+
+            }
+        });
+    }
 }
