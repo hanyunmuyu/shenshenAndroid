@@ -1,17 +1,18 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_margin="2dp">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="6dp">
+        android:orientation="vertical">
 
         <com.youth.banner.Banner xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/banner"
             android:layout_width="match_parent"
             android:layout_height="140dp" />
+
 
         <com.scwang.smartrefresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/refreshLayout"
@@ -19,13 +20,13 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp">
 
-
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
             </android.support.v7.widget.RecyclerView>
+
         </com.scwang.smartrefresh.layout.SmartRefreshLayout>
     </LinearLayout>
 </ScrollView>

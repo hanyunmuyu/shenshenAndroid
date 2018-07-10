@@ -29,6 +29,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -39,23 +41,28 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * A simple {@link Fragment} subclass.
  */
 public class HomeFragment extends BaseFragment {
-    private RecyclerView recyclerView;
-    private Banner banner;
     private ArrayList<String> stringList;
     public Retrofit retrofit;
     public Api api;
     private Integer page = 1;
-    private RefreshLayout refreshLayout;
 
+    @BindView(R.id.rv)
+    public RecyclerView recyclerView;
+    @BindView(R.id.banner)
+    public Banner banner;
+    @BindView(R.id.refreshLayout)
+    public RefreshLayout refreshLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_school_home, container, false);
+        ButterKnife.bind(this, view);
+
         stringList = new ArrayList<>();
-        banner = (Banner) view.findViewById(R.id.banner);
-        refreshLayout = (RefreshLayout) view.findViewById(R.id.refreshLayout);
 
         retrofit = new Retrofit.Builder()
                 .baseUrl("https://api.zecaifu.com/api/v2/")
@@ -78,7 +85,6 @@ public class HomeFragment extends BaseFragment {
             }
         });
 
-        recyclerView = view.findViewById(R.id.rv);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         List<Map<String, Object>> mapArrayList = new ArrayList<>();
@@ -117,6 +123,7 @@ public class HomeFragment extends BaseFragment {
                 banner.setImages(stringList);
                 banner.start();
                 refreshLayout.finishRefresh();
+                page = 2;
             }
 
             @Override
@@ -127,13 +134,12 @@ public class HomeFragment extends BaseFragment {
     }
 
     private void loadMore() {
-        page++;
         Toast.makeText(getContext(), page + "", Toast.LENGTH_SHORT).show();
         Call<HomeBean> call = api.getHomeData(page);
         call.enqueue(new Callback<HomeBean>() {
             @Override
             public void onResponse(Call<HomeBean> call, Response<HomeBean> response) {
-
+                page++;
             }
 
             @Override
