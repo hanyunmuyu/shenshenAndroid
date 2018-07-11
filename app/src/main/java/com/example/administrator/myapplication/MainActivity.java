@@ -28,7 +28,7 @@ import java.util.List;
 public class MainActivity extends FragmentActivity {
 
     private LinearLayout bottom;
-    private int position = 3;
+    private int position = 1;
     private int tmpPosition;
     private ExploreFragment exploreFragment;
     private HomeFragment homeFragment;
@@ -47,11 +47,6 @@ public class MainActivity extends FragmentActivity {
         tmpPosition = position;
         sharedPreferences = getSharedPreferences("user", Context.MODE_PRIVATE);
         initView();
-    }
-
-    private void init() {
-        fragmentManager = getSupportFragmentManager();
-        showFragment();
     }
 
     private void hiddenFragment(FragmentTransaction fragmentTransaction) {
@@ -73,6 +68,8 @@ public class MainActivity extends FragmentActivity {
     }
 
     private void showFragment() {
+        fragmentManager = getSupportFragmentManager();
+
         fragmentTransaction = fragmentManager.beginTransaction();
         hiddenFragment(fragmentTransaction);
         switch (position) {
@@ -132,7 +129,7 @@ public class MainActivity extends FragmentActivity {
             });
             selectBottom(ll);
         }
-        init();
+        showFragment();
     }
 
     private void selectBottom(LinearLayout view) {

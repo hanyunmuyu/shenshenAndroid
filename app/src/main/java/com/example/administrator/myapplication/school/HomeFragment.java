@@ -2,6 +2,7 @@ package com.example.administrator.myapplication.school;
 
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +11,7 @@ import android.util.ArrayMap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.example.administrator.myapplication.BaseFragment;
@@ -52,6 +54,8 @@ public class HomeFragment extends BaseFragment {
     public Banner banner;
     @BindView(R.id.refreshLayout)
     public RefreshLayout refreshLayout;
+    @BindView(R.id.scrollView)
+    public ScrollView scrollView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -81,7 +85,7 @@ public class HomeFragment extends BaseFragment {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
                 loadMore();
-                refreshLayout.finishLoadMore(100);
+                refreshLayout.finishLoadMore(1000);
             }
         });
 
@@ -108,7 +112,14 @@ public class HomeFragment extends BaseFragment {
 
     private void initView() {
         page = 1;
-        Toast.makeText(getContext(), page + "", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                scrollView.fullScroll(ScrollView.FOCUS_UP);
+            }
+        }, 200);
+
         Call<HomeBean> call = api.getHomeData(page);
         call.enqueue(new Callback<HomeBean>() {
             @Override
@@ -134,7 +145,12 @@ public class HomeFragment extends BaseFragment {
     }
 
     private void loadMore() {
-        Toast.makeText(getContext(), page + "", Toast.LENGTH_SHORT).show();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                scrollView.fullScroll(ScrollView.FOCUS_DOWN);
+            }
+        }, 200);
         Call<HomeBean> call = api.getHomeData(page);
         call.enqueue(new Callback<HomeBean>() {
             @Override
