@@ -2,24 +2,53 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:id="@+id/backBtn"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp">
+
+        <ImageView
+            android:id="@+id/backIcon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/backIcon"
+            android:text="我的"
+            android:textSize="16sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/qr"
         android:layout_centerHorizontal="true"
+        android:layout_margin="20dp"
         android:orientation="horizontal">
 
         <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:id="@+id/avatar"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerVertical="true"
             android:src="@mipmap/dog" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/avatar"
             android:text="寒云"
-            android:textAlignment="center" />
-    </LinearLayout>
+            android:textSize="16sp" />
+    </RelativeLayout>
 
     <ImageView
         android:id="@+id/qr"
@@ -33,6 +62,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/qr"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
         android:text="扫码关注我"
         android:textAlignment="center" />
 </RelativeLayout>

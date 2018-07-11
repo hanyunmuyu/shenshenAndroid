@@ -27,32 +27,18 @@ import butterknife.OnClick;
  * A simple {@link Fragment} subclass.
  */
 public class MeFragment extends Fragment {
-    Button logout;
-    private ImageView imageView;
-
-    public MeFragment() {
-        // Required empty public constructor
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-//        ZXingLibrary.initDisplayOpinion(getActivity().getApplicationContext());
-//        Intent intent = new Intent(getActivity().getApplicationContext(), CaptureActivity.class);
-//        startActivityForResult(intent, 1);
         View view = inflater.inflate(R.layout.fragment_me, container, false);
-
         ButterKnife.bind(this, view);
-
-        imageView = view.findViewById(R.id.capture);
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getContext(), QrCodeActivity.class));
-            }
-        });
         return view;
+    }
+
+    @OnClick(R.id.capture)
+    public void showQrCode(View view) {
+        startActivity(new Intent(getContext(), QrCodeActivity.class));
+
     }
 
     @OnClick(R.id.logout)

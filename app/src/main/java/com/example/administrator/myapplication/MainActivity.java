@@ -28,7 +28,7 @@ import java.util.List;
 public class MainActivity extends FragmentActivity {
 
     private LinearLayout bottom;
-    private int position = 1;
+    private int position = 3;
     private int tmpPosition;
     private ExploreFragment exploreFragment;
     private HomeFragment homeFragment;
