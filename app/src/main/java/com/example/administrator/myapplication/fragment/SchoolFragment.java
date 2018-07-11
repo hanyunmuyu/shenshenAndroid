@@ -27,10 +27,6 @@ public class SchoolFragment extends Fragment {
     private List<Fragment> fragmentList;
     private String[] titles = {"推荐", "校园", "社团"};
 
-    public SchoolFragment() {
-        // Required empty public constructor
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -43,8 +39,8 @@ public class SchoolFragment extends Fragment {
 
         fragmentList = new ArrayList<>();
 
-        fragmentList.add(new HomeFragment());
         fragmentList.add(new com.example.administrator.myapplication.school.SchoolFragment());
+        fragmentList.add(new HomeFragment());
         fragmentList.add(new ClubFragment());
 
         homeAdapter = new HomeAdapter(getChildFragmentManager(), fragmentList, titles);

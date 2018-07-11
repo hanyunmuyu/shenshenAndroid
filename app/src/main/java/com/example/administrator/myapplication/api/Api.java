@@ -1,15 +1,7 @@
 package com.example.administrator.myapplication.api;
-import com.example.administrator.myapplication.bean.HomeBean;
-import retrofit2.Call;
-import retrofit2.http.GET;
-import retrofit2.http.Query;
 
-public interface Api {
-
-    //https://api.zecaifu.com/api/v2/home
-    @GET("home")
-    Call<HomeBean> getHomeData(@Query("page") Integer page);
-
-    @GET("home")
-    Call<HomeBean> getHomeData();
+public class Api {
+    public static String BASE_DOMAIN = "http://192.168.1.66:86/";
+    public static String API_VERSION = "api/v1/";
+    public static String API_USRL = BASE_DOMAIN + API_VERSION;
 }

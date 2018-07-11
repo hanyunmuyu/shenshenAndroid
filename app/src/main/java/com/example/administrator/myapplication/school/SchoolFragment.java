@@ -2,6 +2,7 @@ package com.example.administrator.myapplication.school;
 
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,46 +12,111 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.administrator.myapplication.R;
+import com.example.administrator.myapplication.api.Api;
+import com.example.administrator.myapplication.api.ApiService;
+import com.example.administrator.myapplication.bean.SchoolListBean;
 import com.example.administrator.myapplication.school.adapter.SchoolRecyclerViewAdapter;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 /**
  * A simple {@link Fragment} subclass.
  */
 public class SchoolFragment extends Fragment {
-    private RecyclerView recyclerView;
     private SchoolRecyclerViewAdapter schoolRecyclerViewAdapter;
+    private List<Map<String, Object>> mapArrayList;
+    private ApiService apiService;
+    private Integer page = 1;
+    private Integer totalPage = 1;
+    @BindView(R.id.rv)
+    public RecyclerView recyclerView;
 
-    public SchoolFragment() {
-        // Required empty public constructor
-    }
-
+    @BindView(R.id.refreshLayout)
+    public RefreshLayout refreshLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_school_school, container, false);
-        recyclerView = view.findViewById(R.id.rv);
+        ButterKnife.bind(this, view);
 
-        List<Map<String, Object>> mapArrayList = new ArrayList<>();
-        for (int i = 0; i < 16; i++) {
-            Map<String, Object> map = new HashMap<>();
-            map.put("schoolName", "河南工业大学");
-            map.put("description", "河南工业大学简介河南工业大学简介河南工业大学简介河南工业大学简介河南工业大学简介河南工业大学简介");
-            map.put("logo", "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1531464722&di=326def83e48395c00d068bd9049d9bca&imgtype=jpg&er=1&src=http%3A%2F%2Fcollege.koolearn.com%2Fupload%2Fschool%2Fkaoyan%2F10463.jpg");
-            map.put("favoriteNumber", 100000);
-            map.put("clubNumber", 100);
-            mapArrayList.add(map);
-        }
+        mapArrayList = new ArrayList<>();
         schoolRecyclerViewAdapter = new SchoolRecyclerViewAdapter(mapArrayList, getContext());
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
         recyclerView.setAdapter(schoolRecyclerViewAdapter);
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(Api.API_USRL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        apiService = retrofit.create(ApiService.class);
+
+        init();
+
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout r) {
+                page = 1;
+                init();
+                schoolRecyclerViewAdapter.refresh();
+                refreshLayout.finishRefresh(500);
+            }
+        });
+        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout r) {
+                init();
+                refreshLayout.finishLoadMore(500);
+            }
+        });
         return view;
     }
 
+    private void init() {
+        if (page > totalPage) {
+            return;
+        }
+        Call<SchoolListBean> call = apiService.getSchoolList(page);
+        call.enqueue(new Callback<SchoolListBean>() {
+            @Override
+            public void onResponse(Call<SchoolListBean> call, Response<SchoolListBean> response) {
+                SchoolListBean schoolListBean = response.body();
+                page++;
+                totalPage = schoolListBean.getData().getTotalPage();
+                List<SchoolListBean.DataBeanX.DataBean> dataBeanList = schoolListBean.getData().getData();
+                for (SchoolListBean.DataBeanX.DataBean dataBean : dataBeanList) {
+                    Map<String, Object> map = new HashMap<>();
+                    map.put("schoolName", dataBean.getSchool_name());
+                    map.put("description", dataBean.getSchool_description());
+                    map.put("logo", dataBean.getSchool_logo());
+                    map.put("favoriteNumber", dataBean.getFavorite_number());
+                    map.put("clubNumber", dataBean.getClub_number());
+                    mapArrayList.add(map);
+                }
+                schoolRecyclerViewAdapter.addData(mapArrayList);
+                schoolRecyclerViewAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<SchoolListBean> call, Throwable t) {
+
+            }
+        });
+    }
 }

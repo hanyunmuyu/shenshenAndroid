@@ -12,13 +12,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ScrollView;
-import android.widget.Toast;
 
 import com.example.administrator.myapplication.BaseFragment;
 import com.example.administrator.myapplication.GlideImageLoader;
 import com.example.administrator.myapplication.R;
-import com.example.administrator.myapplication.ResponseString;
-import com.example.administrator.myapplication.api.Api;
+import com.example.administrator.myapplication.api.ApiService;
 import com.example.administrator.myapplication.bean.HomeBean;
 import com.example.administrator.myapplication.school.adapter.HomeRecyclerViewAdapter;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -45,7 +43,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class HomeFragment extends BaseFragment {
     private ArrayList<String> stringList;
     public Retrofit retrofit;
-    public Api api;
+    public ApiService api;
     private Integer page = 1;
 
     @BindView(R.id.rv)
@@ -72,7 +70,7 @@ public class HomeFragment extends BaseFragment {
                 .baseUrl("https://api.zecaifu.com/api/v2/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        api = retrofit.create(Api.class);
+        api = retrofit.create(ApiService.class);
 
         initView();
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {

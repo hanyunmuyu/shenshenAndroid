@@ -64,4 +64,12 @@ public class SchoolRecyclerViewAdapter extends RecyclerView.Adapter<SchoolRecycl
 
         }
     }
+
+    public void addData(List<Map<String, Object>> mapArrayList) {
+        this.mapArrayList.addAll(mapArrayList);
+    }
+
+    public void refresh() {
+        this.mapArrayList.clear();
+    }
 }
