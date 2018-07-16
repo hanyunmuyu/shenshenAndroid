@@ -6,4 +6,5 @@
     <color name="colorUnselected">#8a8a8a</color>
     <color name="colorSelected">#1296db</color>
     <color name="bgColor">#ffffff</color>
+    <color name="multiple_image_select_primaryDark">#ffffff</color>
 </resources>
