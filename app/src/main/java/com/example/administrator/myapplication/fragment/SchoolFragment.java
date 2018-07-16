@@ -27,11 +27,6 @@ public class SchoolFragment extends Fragment {
     private List<Fragment> fragmentList;
     private String[] titles = {"推荐", "校园", "社团"};
 
-    public SchoolFragment() {
-        // Required empty public constructor
-    }
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
