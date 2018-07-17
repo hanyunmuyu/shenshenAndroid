@@ -1,5 +1,6 @@
 package com.example.administrator.myapplication.api;
 
+import com.example.administrator.myapplication.bean.ClubListBean;
 import com.example.administrator.myapplication.bean.HomeBean;
 import com.example.administrator.myapplication.bean.SchoolListBean;
 
@@ -21,4 +22,7 @@ public interface ApiService {
 
     @GET("school/index")
     Call<SchoolListBean> getSchoolList(@Query("page") Integer page);
+
+    @GET("club/index")
+    Call<ClubListBean> getClubList(@Query("page") Integer page);
 }

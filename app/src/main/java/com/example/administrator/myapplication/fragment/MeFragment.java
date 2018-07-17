@@ -61,14 +61,15 @@ public class MeFragment extends TakePhotoFragment {
 
     @OnClick(R.id.avatar)
     public void choiceAvatar(View view) {
-        File outDir = new File(Environment.getExternalStorageDirectory() + "/shenshen/Image/");
-        if (!outDir.exists()) {
-            outDir.mkdirs();
-        }
-        File outFile = new File(outDir, System.currentTimeMillis() + ".jpg");
-
-        Uri uri = Uri.fromFile(outFile);
-        getTakePhoto().onPickFromCapture(uri);
+//        File outDir = new File(Environment.getExternalStorageDirectory() + "/shenshen/Image/");
+//        if (!outDir.exists()) {
+//            outDir.mkdirs();
+//        }
+//        File outFile = new File(outDir, System.currentTimeMillis() + ".jpg");
+//
+//        Uri uri = Uri.fromFile(outFile);
+//        getTakePhoto().onPickFromCapture(uri);
+        getTakePhoto().onPickFromGallery();
     }
 
     @Override

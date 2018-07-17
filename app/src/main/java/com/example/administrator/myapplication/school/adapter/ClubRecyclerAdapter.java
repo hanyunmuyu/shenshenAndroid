@@ -41,7 +41,7 @@ public class ClubRecyclerAdapter extends RecyclerView.Adapter<ClubRecyclerAdapte
 
     @Override
     public int getItemCount() {
-        return mapList.size();
+        return mapList == null ? 0 : mapList.size();
     }
 
     public static class ClubViewHolder extends RecyclerView.ViewHolder {
@@ -55,5 +55,13 @@ public class ClubRecyclerAdapter extends RecyclerView.Adapter<ClubRecyclerAdapte
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
+    }
+
+    public void addData(List<Map<String, Object>> mapArrayList) {
+        this.mapList.addAll(mapArrayList);
+    }
+
+    public void refresh() {
+        this.mapList.clear();
     }
 }
