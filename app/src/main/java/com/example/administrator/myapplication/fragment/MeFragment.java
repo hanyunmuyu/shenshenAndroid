@@ -1,18 +1,13 @@
 package com.example.administrator.myapplication.fragment;
 
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -24,10 +19,7 @@ import com.jph.takephoto.app.TakePhotoFragment;
 import com.jph.takephoto.model.TImage;
 import com.jph.takephoto.model.TResult;
 import com.squareup.picasso.Picasso;
-import com.uuzuche.lib_zxing.activity.CodeUtils;
-
 import java.io.File;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -45,7 +37,13 @@ public class MeFragment extends TakePhotoFragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_me, container, false);
         ButterKnife.bind(this, view);
+
         return view;
+    }
+
+    @OnClick(R.id.scan)
+    public void scanCode(View view) {
+
     }
 
     @OnClick(R.id.capture)
