@@ -109,13 +109,14 @@ public class ClubFragment extends Fragment {
                 page++;
                 totalPage = clubListBean.getData().getTotalPage();
                 List<ClubListBean.DataBeanX.DataBean> dataBeanList = clubListBean.getData().getData();
+                List<Map<String, Object>> mapList=new ArrayList<>();
                 for (ClubListBean.DataBeanX.DataBean dataBean : dataBeanList) {
                     Map<String, Object> map = new HashMap<>();
                     map.put("logo", dataBean.getClub_logo());
                     map.put("title", dataBean.getClub_name());
-                    mapArrayList.add(map);
+                    mapList.add(map);
                 }
-                clubRecyclerAdapter.addData(mapArrayList);
+                mapArrayList.addAll(mapList);
                 clubRecyclerAdapter.notifyDataSetChanged();
             }
 

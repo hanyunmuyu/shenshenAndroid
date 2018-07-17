@@ -100,6 +100,7 @@ public class SchoolFragment extends Fragment {
                 page++;
                 totalPage = schoolListBean.getData().getTotalPage();
                 List<SchoolListBean.DataBeanX.DataBean> dataBeanList = schoolListBean.getData().getData();
+                List<Map<String, Object>> mapList=new ArrayList<>();
                 for (SchoolListBean.DataBeanX.DataBean dataBean : dataBeanList) {
                     Map<String, Object> map = new HashMap<>();
                     map.put("schoolName", dataBean.getSchool_name());
@@ -107,9 +108,9 @@ public class SchoolFragment extends Fragment {
                     map.put("logo", dataBean.getSchool_logo());
                     map.put("favoriteNumber", dataBean.getFavorite_number());
                     map.put("clubNumber", dataBean.getClub_number());
-                    mapArrayList.add(map);
+                    mapList.add(map);
                 }
-                schoolRecyclerViewAdapter.addData(mapArrayList);
+                mapArrayList.addAll(mapList);
                 schoolRecyclerViewAdapter.notifyDataSetChanged();
             }
 

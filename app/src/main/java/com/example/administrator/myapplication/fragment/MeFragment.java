@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.example.administrator.myapplication.MainActivity;
 import com.example.administrator.myapplication.R;
 import com.example.administrator.myapplication.activity.QrCodeActivity;
+import com.example.administrator.myapplication.lib.CircleTransform;
 import com.jph.takephoto.app.TakePhotoFragment;
 import com.jph.takephoto.model.TImage;
 import com.jph.takephoto.model.TResult;
@@ -76,7 +77,10 @@ public class MeFragment extends TakePhotoFragment {
     public void takeSuccess(TResult result) {
         TImage tImage = result.getImage();
         Toast.makeText(getContext(), tImage.getOriginalPath(), Toast.LENGTH_SHORT).show();
-        Picasso.get().load(Uri.fromFile(new File(tImage.getOriginalPath()))).into(avatar);
+        Picasso.get()
+                .load(Uri.fromFile(new File(tImage.getOriginalPath())))
+                .transform(new CircleTransform())
+                .into(avatar);
     }
 
     @Override
