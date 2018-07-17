@@ -17,15 +17,13 @@ public class FlashActivity extends TakePhotoActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flash);
-//        new Handler().postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                startActivity(new Intent(FlashActivity.this, MainActivity.class));
-//                finish();
-//            }
-//        }, 300);
-        getTakePhoto().onPickMultiple(3);
-
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                startActivity(new Intent(FlashActivity.this, MainActivity.class));
+                finish();
+            }
+        }, 300);
     }
 
     @Override
