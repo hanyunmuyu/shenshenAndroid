@@ -105,9 +105,6 @@ public class MainActivity extends FragmentActivity {
                 } else {
                     fragmentTransaction.show(meFragment);
                 }
-                if (checkToken() == false) {
-                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
-                }
                 break;
             default:
                 break;
@@ -141,14 +138,6 @@ public class MainActivity extends FragmentActivity {
         } else {
             tv.setSelected(false);
         }
-    }
-
-    private boolean checkToken() {
-        String token = sharedPreferences.getString("token", null);
-        if (token == null) {
-            return false;
-        }
-        return true;
     }
 
     public void logout() {

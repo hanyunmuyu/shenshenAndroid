@@ -8,14 +8,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.administrator.myapplication.MainActivity;
 import com.example.administrator.myapplication.R;
 import com.example.administrator.myapplication.activity.QrCodeActivity;
 import com.example.administrator.myapplication.api.Api;
 import com.example.administrator.myapplication.api.ApiService;
+import com.example.administrator.myapplication.bean.UploadBean;
+import com.example.administrator.myapplication.bean.UserBean;
 import com.example.administrator.myapplication.lib.CircleTransform;
 import com.example.administrator.myapplication.lib.RetrofitManager;
+import com.example.administrator.myapplication.lib.Token;
 import com.jph.takephoto.app.TakePhotoFragment;
 import com.jph.takephoto.model.TImage;
 import com.jph.takephoto.model.TResult;
@@ -23,6 +27,7 @@ import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -48,6 +53,8 @@ public class MeFragment extends TakePhotoFragment {
 
     @BindView(R.id.avatar)
     public ImageView avatar;
+    @BindView(R.id.nickName)
+    public TextView nickName;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,7 +62,33 @@ public class MeFragment extends TakePhotoFragment {
         View view = inflater.inflate(R.layout.fragment_me, container, false);
         ButterKnife.bind(this, view);
 
+        initData();
+
         return view;
+    }
+
+    private void initData() {
+        Call<UserBean> call = RetrofitManager.getInstance().getApiService(getContext()).getUserInfo();
+        call.enqueue(new Callback<UserBean>() {
+            @Override
+            public void onResponse(Call<UserBean> call, Response<UserBean> response) {
+                UserBean userBean = response.body();
+                Token.getInstance().checkCode(getContext(), userBean.getCode());
+                UserBean.DataBean dataBean = userBean.getData();
+
+                Picasso.get()
+                        .load(dataBean.getAvatar())
+                        .transform(new CircleTransform())
+                        .into(avatar);
+                nickName.setText(dataBean.getNick_name());
+
+            }
+
+            @Override
+            public void onFailure(Call<UserBean> call, Throwable t) {
+
+            }
+        });
     }
 
     @OnClick(R.id.scan)
@@ -121,17 +154,21 @@ public class MeFragment extends TakePhotoFragment {
         RequestBody description =
                 RequestBody.create(
                         MediaType.parse("multipart/form-data"), descriptionString);
-        Call<ResponseBody> call = RetrofitManager.getInstance().getApiService(getContext()).upload(description, body);
-        call.enqueue(new Callback<ResponseBody>() {
+        Call<UploadBean> call = RetrofitManager.getInstance().getApiService(getContext()).updateAvatar(description, body);
+        call.enqueue(new Callback<UploadBean>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-
+            public void onResponse(Call<UploadBean> call, Response<UploadBean> response) {
+                UploadBean uploadBean = response.body();
+//                List<UploadBean.DataBean> dataBeanList = uploadBean.getData();
+//                String ids = null;
+//                for (UploadBean.DataBean dataBean : dataBeanList) {
+//                    ids += dataBean.getId() + ",";
+//                }
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                MainActivity mainActivity = (MainActivity) getActivity();
-                mainActivity.showError("请稍后重试");
+            public void onFailure(Call<UploadBean> call, Throwable t) {
+
             }
         });
     }

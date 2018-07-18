@@ -3,6 +3,8 @@ package com.example.administrator.myapplication.api;
 import com.example.administrator.myapplication.bean.ClubListBean;
 import com.example.administrator.myapplication.bean.HomeBean;
 import com.example.administrator.myapplication.bean.SchoolListBean;
+import com.example.administrator.myapplication.bean.UploadBean;
+import com.example.administrator.myapplication.bean.UserBean;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -34,6 +36,17 @@ public interface ApiService {
 
     @Multipart
     @POST("upload")
-    Call<ResponseBody> upload(@Part("description") RequestBody description,
-                              @Part MultipartBody.Part file);
+    Call<UploadBean> upload(@Part("description") RequestBody description,
+                            @Part MultipartBody.Part file);
+
+    @Multipart
+    @POST("profile/user/updateAvatar")
+    Call<UploadBean> updateAvatar(@Part("description") RequestBody description,
+                            @Part MultipartBody.Part file);
+
+    @POST("login")
+    Call<UserBean> login(@Query("name") String name, @Query("password") String password);
+
+    @GET("profile/user")
+    Call<UserBean> getUserInfo();
 }

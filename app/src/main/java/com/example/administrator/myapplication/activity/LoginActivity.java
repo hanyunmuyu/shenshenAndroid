@@ -11,10 +11,15 @@ import android.widget.Toast;
 
 import com.example.administrator.myapplication.MainActivity;
 import com.example.administrator.myapplication.R;
+import com.example.administrator.myapplication.bean.UserBean;
+import com.example.administrator.myapplication.lib.RetrofitManager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LoginActivity extends Activity {
     private SharedPreferences sharedPreferences;
@@ -35,7 +40,7 @@ public class LoginActivity extends Activity {
 
     @OnClick(R.id.login)
     public void click() {
-        String userName = username.getText().toString();
+        final String userName = username.getText().toString();
         String pass = password.getText().toString();
         if (userName.equals("")) {
             Toast.makeText(getApplicationContext(), "用户名不可以为空", Toast.LENGTH_SHORT).show();
@@ -46,8 +51,24 @@ public class LoginActivity extends Activity {
             Toast.makeText(getApplicationContext(), "密码不可以为空", Toast.LENGTH_SHORT).show();
             return;
         }
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("token", "123456").commit();
-        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        Call<UserBean> call = RetrofitManager.getInstance().getApiService(this).login(userName, pass);
+        call.enqueue(new Callback<UserBean>() {
+            @Override
+            public void onResponse(Call<UserBean> call, Response<UserBean> response) {
+                UserBean userBean = response.body();
+                if (userBean.getCode() == 400) {
+                    Toast.makeText(getApplicationContext(), userBean.getMsg(), Toast.LENGTH_SHORT).show();
+                } else {
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("token", userBean.getData().getApi_token()).commit();
+                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserBean> call, Throwable t) {
+
+            }
+        });
     }
 }
