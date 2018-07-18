@@ -18,6 +18,7 @@ import java.util.Map;
 public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerViewAdapter.MyViewHolder> {
     private List<Map<String, Object>> mapArrayList;
     private Context context;
+    private OnItemClickListener onItemClickListener;
 
     public HomeRecyclerViewAdapter(List<Map<String, Object>> mapArrayList, Context context) {
         this.mapArrayList = mapArrayList;
@@ -26,7 +27,7 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        MyViewHolder myViewHolder = new MyViewHolder(LayoutInflater.from(context).inflate(R.layout.school_home_item, parent, false));
+        MyViewHolder myViewHolder = new MyViewHolder(LayoutInflater.from(context).inflate(R.layout.school_home_item, parent, false), onItemClickListener);
         return myViewHolder;
     }
 
@@ -48,7 +49,7 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
         return mapArrayList.size();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
+    public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public ImageView pic;
         public TextView name;
         public TextView addTime;
@@ -57,8 +58,9 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
         public TextView favoriteNumber;
         public TextView collectionNumber;
         public TextView commentNumber;
+        private OnItemClickListener onItemClickListener;
 
-        public MyViewHolder(View itemView) {
+        public MyViewHolder(View itemView, OnItemClickListener onItemClickListener) {
 
             super(itemView);
             pic = itemView.findViewById(R.id.pic);
@@ -69,6 +71,21 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
             favoriteNumber = itemView.findViewById(R.id.favoriteNumber);
             collectionNumber = itemView.findViewById(R.id.collectionNumber);
             commentNumber = itemView.findViewById(R.id.commentNumber);
+            this.onItemClickListener = onItemClickListener;
+            itemView.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View view) {
+            onItemClickListener.onItemClick(view, getPosition());
+        }
+    }
+
+    public interface OnItemClickListener {
+        public void onItemClick(View view, int postion);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
     }
 }

@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ScrollView;
+import android.widget.Toast;
 
 import com.example.administrator.myapplication.BaseFragment;
 import com.example.administrator.myapplication.GlideImageLoader;
@@ -103,6 +104,12 @@ public class HomeFragment extends BaseFragment {
             mapArrayList.add(map);
         }
         HomeRecyclerViewAdapter homeRecyclerViewAdapter = new HomeRecyclerViewAdapter(mapArrayList, getContext());
+        homeRecyclerViewAdapter.setOnItemClickListener(new HomeRecyclerViewAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int postion) {
+                Toast.makeText(getContext(), postion + "", Toast.LENGTH_SHORT).show();
+            }
+        });
         recyclerView.setAdapter(homeRecyclerViewAdapter);
 
         return view;
