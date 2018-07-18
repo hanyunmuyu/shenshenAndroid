@@ -1,6 +1,5 @@
 package com.example.administrator.myapplication.fragment;
 
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,15 +13,28 @@ import android.widget.Toast;
 import com.example.administrator.myapplication.MainActivity;
 import com.example.administrator.myapplication.R;
 import com.example.administrator.myapplication.activity.QrCodeActivity;
+import com.example.administrator.myapplication.api.Api;
+import com.example.administrator.myapplication.api.ApiService;
 import com.example.administrator.myapplication.lib.CircleTransform;
 import com.jph.takephoto.app.TakePhotoFragment;
 import com.jph.takephoto.model.TImage;
 import com.jph.takephoto.model.TResult;
 import com.squareup.picasso.Picasso;
+
 import java.io.File;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -79,6 +91,7 @@ public class MeFragment extends TakePhotoFragment {
                 .load(Uri.fromFile(new File(tImage.getOriginalPath())))
                 .transform(new CircleTransform())
                 .into(avatar);
+        uploadFile(new File(tImage.getOriginalPath()));
     }
 
     @Override
@@ -89,5 +102,35 @@ public class MeFragment extends TakePhotoFragment {
     @Override
     public void takeCancel() {
         super.takeCancel();
+    }
+
+    private void uploadFile(File file) {
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(Api.API_USRL).addConverterFactory(GsonConverterFactory.create()).build();
+        ApiService apiService = retrofit.create(ApiService.class);
+
+        // 创建 RequestBody，用于封装构建RequestBody
+        RequestBody requestFile =
+                RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        //MultipartBody.Part  和后端约定好Key，这里的partName是用image
+        MultipartBody.Part body =
+                MultipartBody.Part.createFormData("file", file.getName(), requestFile);
+        Toast.makeText(getContext(), file.getName(), Toast.LENGTH_SHORT).show();
+        //添加描述
+        String descriptionString = "hello, 这是文件描述";
+        RequestBody description =
+                RequestBody.create(
+                        MediaType.parse("multipart/form-data"), descriptionString);
+        Call<ResponseBody> call = apiService.upload(description, body);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
     }
 }
