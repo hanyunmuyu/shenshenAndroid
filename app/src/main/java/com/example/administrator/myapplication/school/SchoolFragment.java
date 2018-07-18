@@ -15,6 +15,7 @@ import com.example.administrator.myapplication.R;
 import com.example.administrator.myapplication.api.Api;
 import com.example.administrator.myapplication.api.ApiService;
 import com.example.administrator.myapplication.bean.SchoolListBean;
+import com.example.administrator.myapplication.lib.RetrofitManager;
 import com.example.administrator.myapplication.school.adapter.SchoolRecyclerViewAdapter;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
@@ -61,12 +62,6 @@ public class SchoolFragment extends Fragment {
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
         recyclerView.setAdapter(schoolRecyclerViewAdapter);
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Api.API_USRL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        apiService = retrofit.create(ApiService.class);
-
         init();
 
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
@@ -92,7 +87,7 @@ public class SchoolFragment extends Fragment {
         if (page > totalPage) {
             return;
         }
-        Call<SchoolListBean> call = apiService.getSchoolList(page);
+        Call<SchoolListBean> call = RetrofitManager.getInstance().getApiService().getSchoolList(page);
         call.enqueue(new Callback<SchoolListBean>() {
             @Override
             public void onResponse(Call<SchoolListBean> call, Response<SchoolListBean> response) {
@@ -100,7 +95,7 @@ public class SchoolFragment extends Fragment {
                 page++;
                 totalPage = schoolListBean.getData().getTotalPage();
                 List<SchoolListBean.DataBeanX.DataBean> dataBeanList = schoolListBean.getData().getData();
-                List<Map<String, Object>> mapList=new ArrayList<>();
+                List<Map<String, Object>> mapList = new ArrayList<>();
                 for (SchoolListBean.DataBeanX.DataBean dataBean : dataBeanList) {
                     Map<String, Object> map = new HashMap<>();
                     map.put("schoolName", dataBean.getSchool_name());

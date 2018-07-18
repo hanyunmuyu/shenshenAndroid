@@ -16,6 +16,7 @@ import com.example.administrator.myapplication.R;
 import com.example.administrator.myapplication.api.Api;
 import com.example.administrator.myapplication.api.ApiService;
 import com.example.administrator.myapplication.bean.ClubListBean;
+import com.example.administrator.myapplication.lib.RetrofitManager;
 import com.example.administrator.myapplication.school.adapter.ClubRecyclerAdapter;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
@@ -58,14 +59,7 @@ public class ClubFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_school_club, container, false);
         ButterKnife.bind(this, view);
 
-        retrofit = new Retrofit.Builder()
-                .baseUrl(Api.API_USRL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        apiService = retrofit.create(ApiService.class);
-
         initView();
-
 
         initData();
 
@@ -101,7 +95,7 @@ public class ClubFragment extends Fragment {
         if (page > totalPage) {
             return;
         }
-        Call<ClubListBean> clubListBeanCall = apiService.getClubList(page);
+        Call<ClubListBean> clubListBeanCall = RetrofitManager.getInstance().getApiService().getClubList(page);
         clubListBeanCall.enqueue(new Callback<ClubListBean>() {
             @Override
             public void onResponse(Call<ClubListBean> call, Response<ClubListBean> response) {
@@ -109,7 +103,7 @@ public class ClubFragment extends Fragment {
                 page++;
                 totalPage = clubListBean.getData().getTotalPage();
                 List<ClubListBean.DataBeanX.DataBean> dataBeanList = clubListBean.getData().getData();
-                List<Map<String, Object>> mapList=new ArrayList<>();
+                List<Map<String, Object>> mapList = new ArrayList<>();
                 for (ClubListBean.DataBeanX.DataBean dataBean : dataBeanList) {
                     Map<String, Object> map = new HashMap<>();
                     map.put("logo", dataBean.getClub_logo());

@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.example.administrator.myapplication.MainActivity;
 import com.example.administrator.myapplication.R;
@@ -16,18 +15,24 @@ import com.example.administrator.myapplication.activity.QrCodeActivity;
 import com.example.administrator.myapplication.api.Api;
 import com.example.administrator.myapplication.api.ApiService;
 import com.example.administrator.myapplication.lib.CircleTransform;
+import com.example.administrator.myapplication.lib.RetrofitManager;
 import com.jph.takephoto.app.TakePhotoFragment;
 import com.jph.takephoto.model.TImage;
 import com.jph.takephoto.model.TResult;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
+import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.HttpUrl;
+import okhttp3.Interceptor;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -86,7 +91,6 @@ public class MeFragment extends TakePhotoFragment {
     @Override
     public void takeSuccess(TResult result) {
         TImage tImage = result.getImage();
-        Toast.makeText(getContext(), tImage.getOriginalPath(), Toast.LENGTH_SHORT).show();
         Picasso.get()
                 .load(Uri.fromFile(new File(tImage.getOriginalPath())))
                 .transform(new CircleTransform())
@@ -105,8 +109,6 @@ public class MeFragment extends TakePhotoFragment {
     }
 
     private void uploadFile(File file) {
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(Api.API_USRL).addConverterFactory(GsonConverterFactory.create()).build();
-        ApiService apiService = retrofit.create(ApiService.class);
 
         // 创建 RequestBody，用于封装构建RequestBody
         RequestBody requestFile =
@@ -114,13 +116,12 @@ public class MeFragment extends TakePhotoFragment {
         //MultipartBody.Part  和后端约定好Key，这里的partName是用image
         MultipartBody.Part body =
                 MultipartBody.Part.createFormData("file", file.getName(), requestFile);
-        Toast.makeText(getContext(), file.getName(), Toast.LENGTH_SHORT).show();
         //添加描述
-        String descriptionString = "hello, 这是文件描述";
+        String descriptionString = "头像";
         RequestBody description =
                 RequestBody.create(
                         MediaType.parse("multipart/form-data"), descriptionString);
-        Call<ResponseBody> call = apiService.upload(description, body);
+        Call<ResponseBody> call = RetrofitManager.getInstance().getApiService().upload(description, body);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -129,7 +130,8 @@ public class MeFragment extends TakePhotoFragment {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+                MainActivity mainActivity = (MainActivity) getActivity();
+                mainActivity.showError("请稍后重试");
             }
         });
     }
