@@ -1,5 +1,8 @@
 package com.example.administrator.myapplication.lib;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import com.example.administrator.myapplication.api.Api;
 import com.example.administrator.myapplication.api.ApiService;
 
@@ -15,6 +18,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitManager {
     private static RetrofitManager retrofitManager;
     private static ApiService apiService;
+    private SharedPreferences sharedPreferences;
 
     private RetrofitManager() {
     }
@@ -23,15 +27,21 @@ public class RetrofitManager {
         if (retrofitManager == null) {
             retrofitManager = new RetrofitManager();
         }
+        return retrofitManager;
+    }
+
+    public ApiService getApiService(Context context) {
+        sharedPreferences = context.getSharedPreferences("user", Context.MODE_PRIVATE);
+        final String token = sharedPreferences.getString("token", null);
+
         OkHttpClient httpClient =
                 new OkHttpClient.Builder().addInterceptor(new Interceptor() {
                     @Override
                     public okhttp3.Response intercept(Chain chain) throws IOException {
                         Request original = chain.request();
                         HttpUrl originalHttpUrl = original.url();
-
                         HttpUrl url = originalHttpUrl.newBuilder()
-                                .addQueryParameter("api_token", "hanyunmuyu")
+                                .addQueryParameter("api_token", token)
                                 .build();
                         //Request customization: add request headers
                         Request.Builder requestBuilder = original.newBuilder()
@@ -49,10 +59,6 @@ public class RetrofitManager {
 
         apiService = retrofit.create(ApiService.class);
 
-        return retrofitManager;
-    }
-
-    public ApiService getApiService() {
         return apiService;
     }
 }

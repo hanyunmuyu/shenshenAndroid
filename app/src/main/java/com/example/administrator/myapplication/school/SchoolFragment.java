@@ -87,7 +87,7 @@ public class SchoolFragment extends Fragment {
         if (page > totalPage) {
             return;
         }
-        Call<SchoolListBean> call = RetrofitManager.getInstance().getApiService().getSchoolList(page);
+        Call<SchoolListBean> call = RetrofitManager.getInstance().getApiService(getContext()).getSchoolList(page);
         call.enqueue(new Callback<SchoolListBean>() {
             @Override
             public void onResponse(Call<SchoolListBean> call, Response<SchoolListBean> response) {

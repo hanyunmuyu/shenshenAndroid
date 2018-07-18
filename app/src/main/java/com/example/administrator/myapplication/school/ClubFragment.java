@@ -95,7 +95,7 @@ public class ClubFragment extends Fragment {
         if (page > totalPage) {
             return;
         }
-        Call<ClubListBean> clubListBeanCall = RetrofitManager.getInstance().getApiService().getClubList(page);
+        Call<ClubListBean> clubListBeanCall = RetrofitManager.getInstance().getApiService(getContext()).getClubList(page);
         clubListBeanCall.enqueue(new Callback<ClubListBean>() {
             @Override
             public void onResponse(Call<ClubListBean> call, Response<ClubListBean> response) {
