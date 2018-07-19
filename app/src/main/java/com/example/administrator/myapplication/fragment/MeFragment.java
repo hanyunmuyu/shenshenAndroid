@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.administrator.myapplication.MainActivity;
 import com.example.administrator.myapplication.R;
+import com.example.administrator.myapplication.activity.MyClubActivity;
 import com.example.administrator.myapplication.activity.QrCodeActivity;
 import com.example.administrator.myapplication.api.Api;
 import com.example.administrator.myapplication.api.ApiService;
@@ -171,5 +172,10 @@ public class MeFragment extends TakePhotoFragment {
 
             }
         });
+    }
+
+    @OnClick(R.id.myClub)
+    public void myClub() {
+        startActivity(new Intent(getContext(), MyClubActivity.class));
     }
 }

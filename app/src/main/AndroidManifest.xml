@@ -27,7 +27,9 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".activity.LoginActivity" />
-        <activity android:name=".activity.QrCodeActivity"></activity>
+        <activity android:name=".activity.QrCodeActivity" />
+        <activity android:name=".activity.MyClubActivity" />
+        <activity android:name=".activity.CreateClubActivity"></activity>
     </application>
 
 </manifest>
