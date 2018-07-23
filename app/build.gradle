@@ -54,5 +54,6 @@ dependencies {
     //noinspection GradleDynamicVersion
     //https://github.com/crazycodeboy/TakePhoto
     implementation 'com.jph.takephoto:takephoto_library:4.0.3'
-
+    //https://github.com/dengyuhan/LoadingBar
+    implementation 'com.dyhdyh.loadingbar:loadingbar:1.4.7'
 }

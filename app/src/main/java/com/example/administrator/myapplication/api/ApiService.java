@@ -1,5 +1,6 @@
 package com.example.administrator.myapplication.api;
 
+import com.example.administrator.myapplication.bean.ClubCategory;
 import com.example.administrator.myapplication.bean.ClubListBean;
 import com.example.administrator.myapplication.bean.HomeBean;
 import com.example.administrator.myapplication.bean.SchoolListBean;
@@ -42,11 +43,18 @@ public interface ApiService {
     @Multipart
     @POST("profile/user/updateAvatar")
     Call<UploadBean> updateAvatar(@Part("description") RequestBody description,
-                            @Part MultipartBody.Part file);
+                                  @Part MultipartBody.Part file);
 
     @POST("login")
     Call<UserBean> login(@Query("name") String name, @Query("password") String password);
 
     @GET("profile/user")
     Call<UserBean> getUserInfo();
+
+    @GET("club/category")
+    Call<ClubCategory> getClubCategory();
+
+    @Multipart
+    @POST("profile/club/create")
+    Call<UploadBean> createClub(@Part("description") RequestBody description, @Part MultipartBody.Part file, @Query("name") String name, @Query("category") String category);
 }
