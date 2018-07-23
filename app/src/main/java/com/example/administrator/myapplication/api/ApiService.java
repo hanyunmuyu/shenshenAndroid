@@ -56,5 +56,5 @@ public interface ApiService {
 
     @Multipart
     @POST("profile/club/create")
-    Call<UploadBean> createClub(@Part("description") RequestBody description, @Part MultipartBody.Part file, @Query("name") String name, @Query("category") String category);
+    Call<UploadBean> createClub(@Part("description") RequestBody description, @Part MultipartBody.Part file, @Query("name") String name, @Query("category") String category, @Query("clubDescription") String desc);
 }

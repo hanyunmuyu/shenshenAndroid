@@ -45,6 +45,11 @@ public class CreateClubActivity extends TakePhotoActivity {
     public LinearLayout category;
     @BindView(R.id.clubName)
     public EditText clubName;
+
+    @BindView(R.id.clubDescription)
+    public EditText clubDescription;
+
+
     private String logoStr;
 
     @Override
@@ -104,16 +109,24 @@ public class CreateClubActivity extends TakePhotoActivity {
             Toast.makeText(this, "社团名称不可以为空", Toast.LENGTH_SHORT).show();
             return;
         }
+
+        String description = clubDescription.getText().toString();
+        if (description.equals("") || description == null) {
+            Toast.makeText(this, "社团描述不可以为空", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         String category = getCategory();
         if (category.equals("")) {
             Toast.makeText(this, "至少选择一个分类", Toast.LENGTH_SHORT).show();
             return;
         }
+
         if (logoStr == null || logoStr.equals("")) {
             Toast.makeText(this, "请选择徽标", Toast.LENGTH_SHORT).show();
             return;
         }
-        create(logoStr, name, category);
+        create(logoStr, name, category, description);
     }
 
     @Override
@@ -137,7 +150,7 @@ public class CreateClubActivity extends TakePhotoActivity {
         super.takeCancel();
     }
 
-    private void create(String path, String name, String category) {
+    private void create(String path, String name, String category, String desc) {
         LoadingDialog.make(this).show();
         File file = new File(path);
         // 创建 RequestBody，用于封装构建RequestBody
@@ -151,7 +164,7 @@ public class CreateClubActivity extends TakePhotoActivity {
         RequestBody description =
                 RequestBody.create(
                         MediaType.parse("multipart/form-data"), descriptionString);
-        Call<UploadBean> call = RetrofitManager.getInstance().getApiService(this).createClub(description, body, name, category);
+        Call<UploadBean> call = RetrofitManager.getInstance().getApiService(this).createClub(description, body, name, category, desc);
         call.enqueue(new Callback<UploadBean>() {
             @Override
             public void onResponse(Call<UploadBean> call, Response<UploadBean> response) {
