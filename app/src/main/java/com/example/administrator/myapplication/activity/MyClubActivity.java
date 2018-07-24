@@ -36,7 +36,7 @@ public class MyClubActivity extends Activity {
 
     private void initData() {
         mMapList = new ArrayList<>();
-        for (int i = 0; i < 16; i++) {
+        for (int i = 0; i < 8; i++) {
             Map<String, Object> map = new HashMap<>();
             map.put("logo", "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1531979149414&di=d0316a69c1667208763e1f1210864394&imgtype=0&src=http%3A%2F%2Fd15.lxyes.com%2F15xm%2Fact%2F20151105%2F20%2F99112408.jpg");
             map.put("title", "社团社团社团");
