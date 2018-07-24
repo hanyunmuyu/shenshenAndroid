@@ -1,6 +1,7 @@
 package com.example.administrator.myapplication.school;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -10,8 +11,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.administrator.myapplication.R;
+import com.example.administrator.myapplication.activity.SchoolDetailActivity;
 import com.example.administrator.myapplication.api.Api;
 import com.example.administrator.myapplication.api.ApiService;
 import com.example.administrator.myapplication.bean.SchoolListBean;
@@ -59,6 +62,14 @@ public class SchoolFragment extends Fragment {
 
         mapArrayList = new ArrayList<>();
         schoolRecyclerViewAdapter = new SchoolRecyclerViewAdapter(mapArrayList, getContext());
+        schoolRecyclerViewAdapter.setOnItemClickListener(new SchoolRecyclerViewAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Intent intent = new Intent(getActivity().getApplicationContext(), SchoolDetailActivity.class);
+                intent.putExtra("schoolId", (Integer) mapArrayList.get(position).get("schoolId"));
+                startActivity(intent);
+            }
+        });
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
         recyclerView.setAdapter(schoolRecyclerViewAdapter);
 
@@ -103,6 +114,7 @@ public class SchoolFragment extends Fragment {
                     map.put("logo", dataBean.getSchool_logo());
                     map.put("favoriteNumber", dataBean.getFavorite_number());
                     map.put("clubNumber", dataBean.getClub_number());
+                    map.put("schoolId", dataBean.getId());
                     mapList.add(map);
                 }
                 mapArrayList.addAll(mapList);

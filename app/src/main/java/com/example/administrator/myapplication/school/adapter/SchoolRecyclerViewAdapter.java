@@ -19,6 +19,7 @@ public class SchoolRecyclerViewAdapter extends RecyclerView.Adapter<SchoolRecycl
 
     private List<Map<String, Object>> mapArrayList;
     private Context context;
+    private OnItemClickListener mOnItemClickListener;
 
     public SchoolRecyclerViewAdapter(List<Map<String, Object>> mapArrayList, Context context) {
         this.mapArrayList = mapArrayList;
@@ -27,7 +28,7 @@ public class SchoolRecyclerViewAdapter extends RecyclerView.Adapter<SchoolRecycl
 
     @Override
     public SchoolViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        SchoolViewHolder schoolViewHolder = new SchoolViewHolder(LayoutInflater.from(context).inflate(R.layout.school_school_item, parent, false));
+        SchoolViewHolder schoolViewHolder = new SchoolViewHolder(LayoutInflater.from(context).inflate(R.layout.school_school_item, parent, false), mOnItemClickListener);
 
         return schoolViewHolder;
     }
@@ -47,24 +48,38 @@ public class SchoolRecyclerViewAdapter extends RecyclerView.Adapter<SchoolRecycl
         return mapArrayList.size();
     }
 
-    public class SchoolViewHolder extends RecyclerView.ViewHolder {
+    public class SchoolViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView schoolName;
         public TextView favoriteNumber;
         public TextView clubNumber;
         public TextView description;
         public ImageView logo;
+        private OnItemClickListener mOnItemClickListener;
 
-        public SchoolViewHolder(View itemView) {
+        public SchoolViewHolder(View itemView, OnItemClickListener onItemClickListener) {
             super(itemView);
             schoolName = itemView.findViewById(R.id.schoolName);
             description = itemView.findViewById(R.id.description);
             logo = itemView.findViewById(R.id.logo);
             favoriteNumber = itemView.findViewById(R.id.favoriteNumber);
             clubNumber = itemView.findViewById(R.id.clubNumber);
+            mOnItemClickListener = onItemClickListener;
+            itemView.setOnClickListener(this);
+        }
 
+        @Override
+        public void onClick(View view) {
+            mOnItemClickListener.onItemClick(view, getPosition());
         }
     }
 
+    public interface OnItemClickListener {
+        public void onItemClick(View view, int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.mOnItemClickListener = onItemClickListener;
+    }
     public void addData(List<Map<String, Object>> mapArrayList) {
         this.mapArrayList.addAll(mapArrayList);
     }
