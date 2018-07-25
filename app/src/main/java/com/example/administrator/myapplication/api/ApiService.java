@@ -1,8 +1,10 @@
 package com.example.administrator.myapplication.api;
 
+import com.example.administrator.myapplication.bean.BaseBean;
 import com.example.administrator.myapplication.bean.ClubCategory;
 import com.example.administrator.myapplication.bean.ClubListBean;
 import com.example.administrator.myapplication.bean.HomeBean;
+import com.example.administrator.myapplication.bean.SchoolBean;
 import com.example.administrator.myapplication.bean.SchoolListBean;
 import com.example.administrator.myapplication.bean.UploadBean;
 import com.example.administrator.myapplication.bean.UserBean;
@@ -57,4 +59,10 @@ public interface ApiService {
     @Multipart
     @POST("profile/club/create")
     Call<UploadBean> createClub(@Part("description") RequestBody description, @Part MultipartBody.Part file, @Query("name") String name, @Query("category") String category, @Query("clubDescription") String desc);
+
+    @POST("profile/school/attention")
+    Call<BaseBean> payAttentionToSchool(@Query("schoolId") int SchoolId);
+
+    @GET("school/detail")
+    Call<SchoolBean> getSchoolDetail(@Query("schoolId") int schoolId);
 }

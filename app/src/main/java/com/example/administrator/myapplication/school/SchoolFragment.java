@@ -66,7 +66,9 @@ public class SchoolFragment extends Fragment {
             @Override
             public void onItemClick(View view, int position) {
                 Intent intent = new Intent(getActivity().getApplicationContext(), SchoolDetailActivity.class);
-                intent.putExtra("schoolId", (Integer) mapArrayList.get(position).get("schoolId"));
+                Bundle bundle = new Bundle();
+                bundle.putInt("schoolId", (Integer) mapArrayList.get(position).get("schoolId"));
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });

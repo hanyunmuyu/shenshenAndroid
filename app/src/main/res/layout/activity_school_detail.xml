@@ -2,6 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="2dp"
     android:orientation="vertical">
 
     <LinearLayout
@@ -18,33 +19,52 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
             android:layout_weight="3"
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/schoolName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="河南工业大学"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/schoolDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
-                android:lines="2"
-                android:text="河南工业大学入选国家级专业技术人员继续教育基地07/23 我校河南省本科一批录取结束,生源优势继续保持07/21 我校召开2018年西部计划志愿者培训暨欢送会07/20 我..." />
+                android:lines="2" />
         </LinearLayout>
 
-        <Button
+        <RelativeLayout
             android:layout_width="0dp"
-            android:layout_height="20dp"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1"
-            android:background="@color/submitBtn"
-            android:text="签到"
-            android:textColor="@color/gallery_white"
-            android:textSize="16sp" />
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/signInBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_centerInParent="true"
+                android:background="@color/submitBtn"
+                android:text="签到"
+                android:textColor="@color/gallery_white"
+                android:textSize="16sp"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/payAttentionBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_centerInParent="true"
+                android:background="@color/submitBtn"
+                android:text="关注"
+                android:textColor="@color/gallery_white"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
     </LinearLayout>
 
     <LinearLayout

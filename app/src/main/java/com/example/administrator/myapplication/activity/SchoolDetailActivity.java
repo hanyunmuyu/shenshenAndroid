@@ -6,38 +6,92 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.dyhdyh.widget.loading.dialog.LoadingDialog;
 import com.example.administrator.myapplication.R;
+import com.example.administrator.myapplication.bean.BaseBean;
+import com.example.administrator.myapplication.bean.SchoolBean;
+import com.example.administrator.myapplication.lib.RetrofitManager;
+import com.example.administrator.myapplication.lib.Token;
 import com.example.administrator.myapplication.schoolDetail.adapter.SchoolDetailAdapter;
 import com.example.administrator.myapplication.schoolDetail.fragment.AllFragment;
 import com.example.administrator.myapplication.schoolDetail.fragment.BestFragment;
 import com.example.administrator.myapplication.schoolDetail.fragment.HotFragment;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SchoolDetailActivity extends FragmentActivity {
     @BindView(R.id.tl)
     public TabLayout mTabLayout;
     @BindView(R.id.vp)
     public ViewPager mViewPager;
+    @BindView(R.id.signInBtn)
+    public Button signInBtn;
+    @BindView(R.id.payAttentionBtn)
+    public Button payAttentionBtn;
+    @BindView(R.id.logo)
+    public ImageView logo;
+    @BindView(R.id.schoolName)
+    public TextView schoolName;
+    @BindView(R.id.schoolDescription)
+    public TextView schoolDescription;
 
     private String[] mTitles = {"全部", "热门", "精华"};
     private SchoolDetailAdapter mSchoolDetailAdapter;
     private List<Fragment> mFragmentList;
+    private int schoolId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_school_detail);
         ButterKnife.bind(this);
-        Intent intent = getIntent();
-        int schoolId = intent.getIntExtra("schoolId", 1);
-//        Toast.makeText(this, schoolId + "", Toast.LENGTH_SHORT).show();
+        initData();
         initView();
+    }
+
+    private void initData() {
+        Bundle bundle = getIntent().getExtras();
+        this.schoolId = bundle.getInt("schoolId");
+        Call<SchoolBean> call = RetrofitManager.getInstance().getApiService(this).getSchoolDetail(schoolId);
+        call.enqueue(new Callback<SchoolBean>() {
+            @Override
+            public void onResponse(Call<SchoolBean> call, Response<SchoolBean> response) {
+                SchoolBean schoolBean = response.body();
+                SchoolBean.DataBean dataBean = schoolBean.getData();
+
+                Picasso.get().load(dataBean.getSchool_logo()).into(logo);
+                schoolName.setText(dataBean.getSchool_name());
+                schoolDescription.setText(dataBean.getSchool_description());
+                if (dataBean.getIsAttention() == 0) {
+                    payAttentionBtn.setVisibility(View.VISIBLE);
+                    signInBtn.setVisibility(View.GONE);
+                } else {
+                    payAttentionBtn.setVisibility(View.GONE);
+                    signInBtn.setVisibility(View.VISIBLE);
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<SchoolBean> call, Throwable t) {
+
+            }
+        });
     }
 
     private void initView() {
@@ -51,4 +105,35 @@ public class SchoolDetailActivity extends FragmentActivity {
         mTabLayout.setupWithViewPager(mViewPager);
     }
 
+    @OnClick(R.id.payAttentionBtn)
+    public void payAttention(View view) {
+        LoadingDialog.make(this).show();
+        Call<BaseBean> call = RetrofitManager.getInstance().getApiService(this).payAttentionToSchool(schoolId);
+        call.enqueue(new Callback<BaseBean>() {
+            @Override
+            public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {
+                LoadingDialog.cancel();
+                BaseBean baseBean = response.body();
+                new Token().checkCode(getApplicationContext(), baseBean.getCode());
+
+                if (signInBtn.getVisibility() == View.VISIBLE) {
+                    payAttentionBtn.setVisibility(View.GONE);
+                } else {
+                    signInBtn.setVisibility(View.VISIBLE);
+                }
+
+                if (payAttentionBtn.getVisibility() == View.VISIBLE) {
+                    payAttentionBtn.setVisibility(View.GONE);
+                    signInBtn.setVisibility(View.VISIBLE);
+                } else {
+                    signInBtn.setVisibility(View.GONE);
+                    payAttentionBtn.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseBean> call, Throwable t) {
+            }
+        });
+    }
 }
