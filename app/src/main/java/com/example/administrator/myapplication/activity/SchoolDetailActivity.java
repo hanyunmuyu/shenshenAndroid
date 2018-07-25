@@ -4,11 +4,8 @@ import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import com.example.administrator.myapplication.R;
 import com.example.administrator.myapplication.schoolDetail.adapter.SchoolDetailAdapter;
@@ -48,7 +45,6 @@ public class SchoolDetailActivity extends FragmentActivity {
         mFragmentList.add(new AllFragment());
         mFragmentList.add(new HotFragment());
         mFragmentList.add(new BestFragment());
-
         mSchoolDetailAdapter = new SchoolDetailAdapter(getSupportFragmentManager(), mFragmentList, mTitles);
         mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
         mViewPager.setAdapter(mSchoolDetailAdapter);
