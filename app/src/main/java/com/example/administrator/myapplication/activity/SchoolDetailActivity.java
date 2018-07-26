@@ -16,6 +16,7 @@ import com.dyhdyh.widget.loading.dialog.LoadingDialog;
 import com.example.administrator.myapplication.R;
 import com.example.administrator.myapplication.bean.BaseBean;
 import com.example.administrator.myapplication.bean.SchoolBean;
+import com.example.administrator.myapplication.lib.CropSquareTransformation;
 import com.example.administrator.myapplication.lib.RetrofitManager;
 import com.example.administrator.myapplication.lib.Token;
 import com.example.administrator.myapplication.schoolDetail.adapter.SchoolDetailAdapter;
@@ -50,6 +51,14 @@ public class SchoolDetailActivity extends FragmentActivity {
     @BindView(R.id.schoolDescription)
     public TextView schoolDescription;
 
+
+    @BindView(R.id.clubNumber)
+    public TextView clubNumber;
+    @BindView(R.id.departmentNumber)
+    public TextView departmentNumber;
+    @BindView(R.id.attentionNumber)
+    public TextView attentionNumber;
+
     private String[] mTitles = {"全部", "热门", "精华"};
     private SchoolDetailAdapter mSchoolDetailAdapter;
     private List<Fragment> mFragmentList;
@@ -74,9 +83,13 @@ public class SchoolDetailActivity extends FragmentActivity {
                 SchoolBean schoolBean = response.body();
                 SchoolBean.DataBean dataBean = schoolBean.getData();
 
-                Picasso.get().load(dataBean.getSchool_logo()).into(logo);
+                Picasso.get().load(dataBean.getSchool_logo()).transform(new CropSquareTransformation()).into(logo);
                 schoolName.setText(dataBean.getSchool_name());
                 schoolDescription.setText(dataBean.getSchool_description());
+                clubNumber.setText(String.valueOf(schoolBean.getData().getClub_number()));
+                departmentNumber.setText(String.valueOf(schoolBean.getData().getDeparment_number()));
+                attentionNumber.setText(String.valueOf(schoolBean.getData().getAttention_number()));
+
                 if (dataBean.getIsAttention() == 0) {
                     payAttentionBtn.setVisibility(View.VISIBLE);
                     signInBtn.setVisibility(View.GONE);
@@ -115,19 +128,20 @@ public class SchoolDetailActivity extends FragmentActivity {
                 LoadingDialog.cancel();
                 BaseBean baseBean = response.body();
                 new Token().checkCode(getApplicationContext(), baseBean.getCode());
+                if (baseBean.getCode() == 200) {
+                    if (signInBtn.getVisibility() == View.VISIBLE) {
+                        payAttentionBtn.setVisibility(View.GONE);
+                    } else {
+                        signInBtn.setVisibility(View.VISIBLE);
+                    }
 
-                if (signInBtn.getVisibility() == View.VISIBLE) {
-                    payAttentionBtn.setVisibility(View.GONE);
-                } else {
-                    signInBtn.setVisibility(View.VISIBLE);
-                }
-
-                if (payAttentionBtn.getVisibility() == View.VISIBLE) {
-                    payAttentionBtn.setVisibility(View.GONE);
-                    signInBtn.setVisibility(View.VISIBLE);
-                } else {
-                    signInBtn.setVisibility(View.GONE);
-                    payAttentionBtn.setVisibility(View.VISIBLE);
+                    if (payAttentionBtn.getVisibility() == View.VISIBLE) {
+                        payAttentionBtn.setVisibility(View.GONE);
+                        signInBtn.setVisibility(View.VISIBLE);
+                    } else {
+                        signInBtn.setVisibility(View.GONE);
+                        payAttentionBtn.setVisibility(View.VISIBLE);
+                    }
                 }
             }
 
@@ -135,5 +149,10 @@ public class SchoolDetailActivity extends FragmentActivity {
             public void onFailure(Call<BaseBean> call, Throwable t) {
             }
         });
+    }
+
+    @OnClick(R.id.backBtn)
+    public void back() {
+        finish();
     }
 }

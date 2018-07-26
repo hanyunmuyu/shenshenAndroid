@@ -2,11 +2,12 @@ package com.example.administrator.myapplication.bean;
 
 public class SchoolBean {
 
+
     /**
      * code : 200
      * status : success
      * msg : 成功！
-     * data : {"id":1,"school_name":"河南工业大学-0","school_logo":"/uploads/logo/94a400fd0f898bc2d85f8443134e2c1a5.jpg","school_description":"","favorite_number":100,"club_number":1,"created_at":"2018-07-25 15:23:39","updated_at":"2018-07-25 15:23:39","isAttention":0}
+     * data : {"id":1,"school_name":"河南工业大学-0","school_logo":"http://192.168.1.66:86/uploads/logo/94a400fd0f898bc2d85f8443134e2c1a5.jpg","school_description":"河南工业大学","favorite_number":100,"club_number":2,"created_at":"2018-07-26 16:15:58","updated_at":"2018-07-26 16:15:58","isAttention":0,"deparment_number":1,"attention_number":0}
      */
 
     private int code;
@@ -50,13 +51,15 @@ public class SchoolBean {
         /**
          * id : 1
          * school_name : 河南工业大学-0
-         * school_logo : /uploads/logo/94a400fd0f898bc2d85f8443134e2c1a5.jpg
-         * school_description :
+         * school_logo : http://192.168.1.66:86/uploads/logo/94a400fd0f898bc2d85f8443134e2c1a5.jpg
+         * school_description : 河南工业大学
          * favorite_number : 100
-         * club_number : 1
-         * created_at : 2018-07-25 15:23:39
-         * updated_at : 2018-07-25 15:23:39
+         * club_number : 2
+         * created_at : 2018-07-26 16:15:58
+         * updated_at : 2018-07-26 16:15:58
          * isAttention : 0
+         * deparment_number : 1
+         * attention_number : 0
          */
 
         private int id;
@@ -68,6 +71,8 @@ public class SchoolBean {
         private String created_at;
         private String updated_at;
         private int isAttention;
+        private int deparment_number;
+        private int attention_number;
 
         public int getId() {
             return id;
@@ -139,6 +144,22 @@ public class SchoolBean {
 
         public void setIsAttention(int isAttention) {
             this.isAttention = isAttention;
+        }
+
+        public int getDeparment_number() {
+            return deparment_number;
+        }
+
+        public void setDeparment_number(int deparment_number) {
+            this.deparment_number = deparment_number;
+        }
+
+        public int getAttention_number() {
+            return attention_number;
+        }
+
+        public void setAttention_number(int attention_number) {
+            this.attention_number = attention_number;
         }
     }
 }
