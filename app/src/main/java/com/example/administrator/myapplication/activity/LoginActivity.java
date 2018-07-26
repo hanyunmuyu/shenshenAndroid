@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.example.administrator.myapplication.MainActivity;
 import com.example.administrator.myapplication.R;
+import com.example.administrator.myapplication.RegisterActivity;
 import com.example.administrator.myapplication.bean.UserBean;
 import com.example.administrator.myapplication.lib.RetrofitManager;
 
@@ -70,5 +71,15 @@ public class LoginActivity extends Activity {
 
             }
         });
+    }
+
+    @OnClick(R.id.backBtn)
+    public void back() {
+        finish();
+    }
+
+    @OnClick(R.id.register)
+    public void register() {
+        startActivity(new Intent(this, RegisterActivity.class));
     }
 }

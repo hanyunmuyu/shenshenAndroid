@@ -57,6 +57,8 @@ public class MeFragment extends TakePhotoFragment {
     @BindView(R.id.nickName)
     public TextView nickName;
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -75,13 +77,15 @@ public class MeFragment extends TakePhotoFragment {
             public void onResponse(Call<UserBean> call, Response<UserBean> response) {
                 UserBean userBean = response.body();
                 Token.getInstance().checkCode(getContext(), userBean.getCode());
-                UserBean.DataBean dataBean = userBean.getData();
+                if (userBean.getCode() == 200) {
+                    UserBean.DataBean dataBean = userBean.getData();
 
-                Picasso.get()
-                        .load(dataBean.getAvatar())
-                        .transform(new CircleTransform())
-                        .into(avatar);
-                nickName.setText(dataBean.getNick_name());
+                    Picasso.get()
+                            .load(dataBean.getAvatar())
+                            .transform(new CircleTransform())
+                            .into(avatar);
+                    nickName.setText(dataBean.getNick_name());
+                }
 
             }
 

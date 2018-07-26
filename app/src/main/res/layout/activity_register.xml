@@ -2,10 +2,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageView
+        android:id="@+id/backBtn"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentStart="true"
+        android:src="@mipmap/back" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
         android:layout_centerVertical="true"
         android:orientation="vertical">
 
@@ -13,42 +21,105 @@
             android:id="@+id/user"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="10dp"
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="100dp"
+                android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_weight="1"
                 android:text="用户名："
-                android:textAlignment="center" />
+                android:textAlignment="textStart" />
 
             <EditText
-                android:layout_width="200dp"
+                android:id="@+id/name"
+                android:layout_width="0dp"
                 android:layout_height="50dp"
-                android:layout_weight="2"
+                android:layout_weight="3"
                 android:hint="请输入用户名" />
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="10dp"
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="100dp"
+                android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_weight="1"
-                android:text="用户名："
-                android:textAlignment="center" />
+                android:text="密  码："
+                android:textAlignment="textStart" />
 
             <EditText
-                android:layout_width="200dp"
+                android:id="@+id/password"
+                android:layout_width="0dp"
                 android:layout_height="50dp"
-                android:layout_weight="2"
-                android:hint="请输入密码" />
+                android:layout_weight="3"
+                android:hint="请输入密码"
+                android:inputType="textPassword" />
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:text="性  别："
+                android:textAlignment="textStart" />
+
+            <RadioGroup
+                android:id="@+id/gender"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/man"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:checked="true"
+                    android:text="男" />
+
+                <RadioButton
+                    android:id="@+id/women"
+
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="女" />
+
+                <RadioButton
+                    android:id="@+id/secret"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="保密" />
+            </RadioGroup>
+
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="#1296db"
+            android:text="注册"
+            android:textColor="#ffff"
+            android:textSize="20sp" />
     </LinearLayout>
 
 </RelativeLayout>
