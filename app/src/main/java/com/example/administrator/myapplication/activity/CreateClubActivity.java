@@ -187,4 +187,8 @@ public class CreateClubActivity extends TakePhotoActivity {
         });
     }
 
+    @OnClick(R.id.backBtn)
+    public void back() {
+        finish();
+    }
 }
