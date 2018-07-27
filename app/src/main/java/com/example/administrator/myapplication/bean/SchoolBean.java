@@ -7,7 +7,7 @@ public class SchoolBean {
      * code : 200
      * status : success
      * msg : 成功！
-     * data : {"id":1,"school_name":"河南工业大学-0","school_logo":"http://192.168.1.66:86/uploads/logo/94a400fd0f898bc2d85f8443134e2c1a5.jpg","school_description":"河南工业大学","favorite_number":100,"club_number":2,"created_at":"2018-07-26 16:15:58","updated_at":"2018-07-26 16:15:58","isAttention":0,"deparment_number":1,"attention_number":0}
+     * data : {"id":50,"school_name":"河南工业大学-49","school_logo":"http://192.168.1.66:86/uploads/logo/94a400fd0f898bc2d85f8443134e2c1a5.jpg","school_description":"河南工业大学河南工业大学河南工业大学河南工业大学河南工业大学","favorite_number":149,"club_number":2,"created_at":"2018-07-27 10:26:09","updated_at":"2018-07-27 10:26:09","isAttention":1,"isSignIn":1,"deparment_number":1,"attention_number":1}
      */
 
     private int code;
@@ -49,17 +49,18 @@ public class SchoolBean {
 
     public static class DataBean {
         /**
-         * id : 1
-         * school_name : 河南工业大学-0
+         * id : 50
+         * school_name : 河南工业大学-49
          * school_logo : http://192.168.1.66:86/uploads/logo/94a400fd0f898bc2d85f8443134e2c1a5.jpg
-         * school_description : 河南工业大学
-         * favorite_number : 100
+         * school_description : 河南工业大学河南工业大学河南工业大学河南工业大学河南工业大学
+         * favorite_number : 149
          * club_number : 2
-         * created_at : 2018-07-26 16:15:58
-         * updated_at : 2018-07-26 16:15:58
-         * isAttention : 0
+         * created_at : 2018-07-27 10:26:09
+         * updated_at : 2018-07-27 10:26:09
+         * isAttention : 1
+         * isSignIn : 1
          * deparment_number : 1
-         * attention_number : 0
+         * attention_number : 1
          */
 
         private int id;
@@ -71,6 +72,7 @@ public class SchoolBean {
         private String created_at;
         private String updated_at;
         private int isAttention;
+        private int isSignIn;
         private int deparment_number;
         private int attention_number;
 
@@ -144,6 +146,14 @@ public class SchoolBean {
 
         public void setIsAttention(int isAttention) {
             this.isAttention = isAttention;
+        }
+
+        public int getIsSignIn() {
+            return isSignIn;
+        }
+
+        public void setIsSignIn(int isSignIn) {
+            this.isSignIn = isSignIn;
         }
 
         public int getDeparment_number() {

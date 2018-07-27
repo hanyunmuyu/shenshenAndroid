@@ -90,6 +90,12 @@ public class SchoolDetailActivity extends FragmentActivity {
                 departmentNumber.setText(String.valueOf(schoolBean.getData().getDeparment_number()));
                 attentionNumber.setText(String.valueOf(schoolBean.getData().getAttention_number()));
 
+                if (dataBean.getIsSignIn() == 1) {
+                    signInBtn.setText("已签到");
+                    signInBtn.setEnabled(false);
+                }
+
+
                 if (dataBean.getIsAttention() == 0) {
                     payAttentionBtn.setVisibility(View.VISIBLE);
                     signInBtn.setVisibility(View.GONE);
@@ -154,5 +160,26 @@ public class SchoolDetailActivity extends FragmentActivity {
     @OnClick(R.id.backBtn)
     public void back() {
         finish();
+    }
+
+    @OnClick(R.id.signInBtn)
+    public void signIn(View view) {
+        LoadingDialog.make(this).show();
+
+        Call<BaseBean> call = RetrofitManager.getInstance().getApiService(this).signIn(schoolId);
+        call.enqueue(new Callback<BaseBean>() {
+            @Override
+            public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {
+                LoadingDialog.cancel();
+                BaseBean baseBean = response.body();
+                signInBtn.setEnabled(false);
+                signInBtn.setText("已签到");
+            }
+
+            @Override
+            public void onFailure(Call<BaseBean> call, Throwable t) {
+
+            }
+        });
     }
 }

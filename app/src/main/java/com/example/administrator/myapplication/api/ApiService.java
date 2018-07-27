@@ -66,6 +66,8 @@ public interface ApiService {
     @GET("school/detail")
     Call<SchoolBean> getSchoolDetail(@Query("schoolId") int schoolId);
 
+    @POST("profile/school/signIn")
+    Call<BaseBean> signIn(@Query("schoolId") int schoolId);
     @POST("register")
     Call<BaseBean> register(@Query("name") String name, @Query("password") String password, @Query("gender") int gender);
 }
