@@ -6,6 +6,7 @@ import com.example.administrator.myapplication.bean.ClubListBean;
 import com.example.administrator.myapplication.bean.HomeBean;
 import com.example.administrator.myapplication.bean.SchoolBean;
 import com.example.administrator.myapplication.bean.SchoolListBean;
+import com.example.administrator.myapplication.bean.SchoolNewsListBean;
 import com.example.administrator.myapplication.bean.UploadBean;
 import com.example.administrator.myapplication.bean.UserBean;
 
@@ -65,6 +66,9 @@ public interface ApiService {
 
     @GET("school/detail")
     Call<SchoolBean> getSchoolDetail(@Query("schoolId") int schoolId);
+
+    @GET("school/news")
+    Call<SchoolNewsListBean> getSchoolNewsList(@Query("page") int page);
 
     @POST("profile/school/signIn")
     Call<BaseBean> signIn(@Query("schoolId") int schoolId);
