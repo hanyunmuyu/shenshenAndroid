@@ -5,12 +5,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.administrator.myapplication.R;
+import com.example.administrator.myapplication.lib.CircleTransform;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 import java.util.Map;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class AllNewsAdapter extends RecyclerView.Adapter<AllNewsAdapter.MyViewHolder> {
@@ -30,6 +35,11 @@ public class AllNewsAdapter extends RecyclerView.Adapter<AllNewsAdapter.MyViewHo
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
+        Map<String, Object> map = mMapList.get(position);
+        Picasso.get().load(R.mipmap.dog).transform(new CircleTransform()).into(holder.logo);
+        holder.title.setText((String) map.get("title"));
+        holder.addTime.setText((String) map.get("created_at"));
+        holder.content.setText((String) map.get("content"));
 
     }
 
@@ -39,6 +49,15 @@ public class AllNewsAdapter extends RecyclerView.Adapter<AllNewsAdapter.MyViewHo
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.logo)
+        public ImageView logo;
+        @BindView(R.id.title)
+        public TextView title;
+        @BindView(R.id.addTime)
+        public TextView addTime;
+        @BindView(R.id.content)
+        public TextView content;
+
         public MyViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);

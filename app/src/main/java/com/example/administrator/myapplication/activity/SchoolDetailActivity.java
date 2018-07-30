@@ -119,7 +119,7 @@ public class SchoolDetailActivity extends FragmentActivity {
         mFragmentList.add(new HotFragment());
         mFragmentList.add(new BestFragment());
         mSchoolDetailAdapter = new SchoolDetailAdapter(getSupportFragmentManager(), mFragmentList, mTitles);
-        mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+        mTabLayout.setTabMode(TabLayout.MODE_FIXED);
         mViewPager.setAdapter(mSchoolDetailAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
     }

@@ -28,7 +28,7 @@ import retrofit2.Response;
 
 public class AllFragment extends Fragment {
 
-    @BindView(R.id.tv)
+    @BindView(R.id.recyclerview)
     public RecyclerView mRecyclerView;
 
     public AllNewsAdapter mAllNewsAdapter;
@@ -66,6 +66,8 @@ public class AllFragment extends Fragment {
                 for (SchoolNewsListBean.DataBeanX.DataBean dataBean : schoolNewsListBean.getData().getData()) {
                     Map<String, Object> map = new HashMap<>();
                     map.put("title", dataBean.getTitle());
+                    map.put("created_at", dataBean.getCreated_at());
+                    map.put("content", dataBean.getContent());
                     list.add(map);
                 }
                 mMapList.addAll(list);
