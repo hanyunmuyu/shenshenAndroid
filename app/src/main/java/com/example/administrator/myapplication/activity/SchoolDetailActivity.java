@@ -50,7 +50,8 @@ public class SchoolDetailActivity extends FragmentActivity {
     public TextView schoolName;
     @BindView(R.id.schoolDescription)
     public TextView schoolDescription;
-
+    @BindView(R.id.schoolTitle)
+    public TextView schoolTitle;
 
     @BindView(R.id.clubNumber)
     public TextView clubNumber;
@@ -89,7 +90,7 @@ public class SchoolDetailActivity extends FragmentActivity {
                 clubNumber.setText(String.valueOf(schoolBean.getData().getClub_number()));
                 departmentNumber.setText(String.valueOf(schoolBean.getData().getDeparment_number()));
                 attentionNumber.setText(String.valueOf(schoolBean.getData().getAttention_number()));
-
+                schoolTitle.setText(schoolBean.getData().getSchool_name());
                 if (dataBean.getIsSignIn() == 1) {
                     signInBtn.setText("已签到");
                     signInBtn.setEnabled(false);
