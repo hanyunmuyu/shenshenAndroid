@@ -4,6 +4,7 @@ import com.example.administrator.myapplication.bean.BaseBean;
 import com.example.administrator.myapplication.bean.ClubCategory;
 import com.example.administrator.myapplication.bean.ClubListBean;
 import com.example.administrator.myapplication.bean.HomeBean;
+import com.example.administrator.myapplication.bean.MessageBean;
 import com.example.administrator.myapplication.bean.SchoolBean;
 import com.example.administrator.myapplication.bean.SchoolListBean;
 import com.example.administrator.myapplication.bean.SchoolNewsListBean;
@@ -75,4 +76,7 @@ public interface ApiService {
 
     @POST("register")
     Call<BaseBean> register(@Query("name") String name, @Query("password") String password, @Query("gender") int gender);
+
+    @GET("profile/user/message")
+    Call<MessageBean> getUserMessage(@Query("page") int page);
 }

@@ -63,6 +63,7 @@ public class LoginActivity extends Activity {
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("token", userBean.getData().getApi_token()).commit();
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                    finish();
                 }
             }
 
