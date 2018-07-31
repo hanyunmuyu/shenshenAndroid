@@ -39,6 +39,7 @@ public class MainActivity extends FragmentActivity {
     private MessageFragment messageFragment;
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
+    private long firstTime = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,6 +111,17 @@ public class MainActivity extends FragmentActivity {
                 break;
         }
         fragmentTransaction.commit();
+    }
+
+    @Override
+    public void onBackPressed() {
+        long secondTime = System.currentTimeMillis();
+        if (secondTime - firstTime > 2000) {
+            Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+            firstTime = secondTime;
+        } else {
+            finish();
+        }
     }
 
     private void initView() {
