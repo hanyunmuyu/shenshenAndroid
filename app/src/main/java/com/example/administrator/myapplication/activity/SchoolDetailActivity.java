@@ -115,7 +115,7 @@ public class SchoolDetailActivity extends FragmentActivity {
 
     private void initView() {
         mFragmentList = new ArrayList<>();
-        mFragmentList.add(new AllFragment());
+        mFragmentList.add(new AllFragment(schoolId));
         mFragmentList.add(new HotFragment());
         mFragmentList.add(new BestFragment());
         mSchoolDetailAdapter = new SchoolDetailAdapter(getSupportFragmentManager(), mFragmentList, mTitles);

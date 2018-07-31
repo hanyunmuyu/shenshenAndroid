@@ -21,7 +21,9 @@ import com.example.administrator.myapplication.bean.UserBean;
 import com.example.administrator.myapplication.lib.CircleTransform;
 import com.example.administrator.myapplication.lib.RetrofitManager;
 import com.example.administrator.myapplication.lib.Token;
+import com.jph.takephoto.app.TakePhoto;
 import com.jph.takephoto.app.TakePhotoFragment;
+import com.jph.takephoto.compress.CompressConfig;
 import com.jph.takephoto.model.TImage;
 import com.jph.takephoto.model.TResult;
 import com.squareup.picasso.Picasso;
@@ -123,7 +125,11 @@ public class MeFragment extends TakePhotoFragment {
 //
 //        Uri uri = Uri.fromFile(outFile);
 //        getTakePhoto().onPickFromCapture(uri);
-        getTakePhoto().onPickFromGallery();
+//        getTakePhoto().onPickFromGallery();
+        CompressConfig compressConfig = new CompressConfig.Builder().setMaxSize(50 * 1024).setMaxPixel(800).create();
+        TakePhoto takePhoto = getTakePhoto();
+        takePhoto.onEnableCompress(compressConfig, true);
+        takePhoto.onPickFromGallery();
     }
 
     @Override
@@ -133,7 +139,7 @@ public class MeFragment extends TakePhotoFragment {
                 .load(Uri.fromFile(new File(tImage.getOriginalPath())))
                 .transform(new CircleTransform())
                 .into(avatar);
-        uploadFile(new File(tImage.getOriginalPath()));
+        uploadFile(new File(tImage.getCompressPath()));
     }
 
     @Override
