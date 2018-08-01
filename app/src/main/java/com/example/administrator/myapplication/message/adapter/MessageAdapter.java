@@ -1,28 +1,34 @@
 package com.example.administrator.myapplication.message.adapter;
 
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
-import android.view.ViewGroup;
+import android.content.Context;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 
-public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHolder> {
-    @Override
-    public MessageViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return null;
+import java.util.List;
+
+public class MessageAdapter extends FragmentPagerAdapter {
+    private List<Fragment> mFragmentList;
+    private String[] titles;
+
+    public MessageAdapter(FragmentManager fm, List<Fragment> fragmentList, String[] titles) {
+        super(fm);
+        mFragmentList = fragmentList;
+        this.titles = titles;
     }
 
     @Override
-    public void onBindViewHolder(MessageViewHolder holder, int position) {
-
+    public Fragment getItem(int position) {
+        return mFragmentList.get(position);
     }
 
     @Override
-    public int getItemCount() {
-        return 0;
+    public int getCount() {
+        return mFragmentList.size();
     }
 
-    public class MessageViewHolder extends RecyclerView.ViewHolder {
-        public MessageViewHolder(View itemView) {
-            super(itemView);
-        }
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return titles[position];
     }
 }
