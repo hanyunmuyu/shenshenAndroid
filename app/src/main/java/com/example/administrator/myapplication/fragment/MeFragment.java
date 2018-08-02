@@ -14,6 +14,7 @@ import com.example.administrator.myapplication.MainActivity;
 import com.example.administrator.myapplication.R;
 import com.example.administrator.myapplication.activity.MyClubActivity;
 import com.example.administrator.myapplication.activity.QrCodeActivity;
+import com.example.administrator.myapplication.activity.UserActivity;
 import com.example.administrator.myapplication.api.Api;
 import com.example.administrator.myapplication.api.ApiService;
 import com.example.administrator.myapplication.bean.UploadBean;
@@ -58,7 +59,6 @@ public class MeFragment extends TakePhotoFragment {
     public ImageView avatar;
     @BindView(R.id.nickName)
     public TextView nickName;
-
 
 
     @Override
@@ -187,5 +187,16 @@ public class MeFragment extends TakePhotoFragment {
     @OnClick(R.id.myClub)
     public void myClub() {
         startActivity(new Intent(getContext(), MyClubActivity.class));
+    }
+
+    @OnClick(R.id.editBtn)
+    public void editUserInfo() {
+        startActivity(new Intent(getContext(), UserActivity.class));
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        initData();
     }
 }
