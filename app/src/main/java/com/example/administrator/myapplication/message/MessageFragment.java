@@ -95,18 +95,22 @@ public class MessageFragment extends Fragment {
             @Override
             public void onResponse(Call<MessageBean> call, Response<MessageBean> response) {
                 MessageBean messageBean = response.body();
-                messageBean.getData().getData();
                 List<Map<String, Object>> mapList = new ArrayList<>();
-                for (MessageBean.DataBeanX.DataBean dataBean : messageBean.getData().getData()) {
-                    Map<String, Object> map = new HashMap<>();
-                    map.put("logo", dataBean.getLogo());
-                    map.put("name", dataBean.getName());
-                    map.put("title", dataBean.getTitle());
-                    map.put("created_at", dataBean.getCreated_at());
-                    mapList.add(map);
+                try {
+                    for (MessageBean.DataBeanX.DataBean dataBean : messageBean.getData().getData()) {
+                        Map<String, Object> map = new HashMap<>();
+                        map.put("logo", dataBean.getLogo());
+                        map.put("name", dataBean.getName());
+                        map.put("title", dataBean.getTitle());
+                        map.put("created_at", dataBean.getCreated_at());
+                        mapList.add(map);
+                    }
+                    mMapList.addAll(mapList);
+                    mMessageRecyclerviewAdapter.notifyDataSetChanged();
+
+                } catch (Exception e) {
+
                 }
-                mMapList.addAll(mapList);
-                mMessageRecyclerviewAdapter.notifyDataSetChanged();
             }
 
             @Override

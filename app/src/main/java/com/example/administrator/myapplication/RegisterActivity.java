@@ -103,7 +103,7 @@ public class RegisterActivity extends Activity {
         OptionsPickerView pvOptions = new OptionsPickerBuilder(this, new OnOptionsSelectListener() {
             @Override
             public void onOptionsSelect(int options1, int option2, int options3, View v) {
-                schoolId = options1;
+                schoolId = mSchoolBeans.get(options1).getId();
                 schoolName.setText(mSchoolBeans.get(options1).getPickerViewText());
             }
         }).setTitleText("选择高校")
@@ -139,7 +139,6 @@ public class RegisterActivity extends Activity {
                 }
                 break;
         }
-        Toast.makeText(this, gender + "", Toast.LENGTH_SHORT).show();
     }
 
     @OnClick(R.id.backBtn)
@@ -159,12 +158,12 @@ public class RegisterActivity extends Activity {
                     String userName = name.getText().toString();
                     String pwd = password.getText().toString();
                     if (userName.equals("") || userName == null) {
-                        Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "用户名不可以为空", Toast.LENGTH_SHORT).show();
                         return;
                     }
 
                     if (pwd.equals("") || pwd == null) {
-                        Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "密码不可以为空", Toast.LENGTH_SHORT).show();
                         return;
                     }
                     Call<BaseBean> call = RetrofitManager.getInstance().getApiService(getApplicationContext()).register(userName, pwd, gender, schoolId);
