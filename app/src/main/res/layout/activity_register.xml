@@ -111,6 +111,29 @@
         </LinearLayout>
 
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:text="院   校"
+                android:textAlignment="textStart" />
+
+            <TextView
+                android:id="@+id/schoolName"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="3"
+                android:hint="点击选择所属高校" />
+        </LinearLayout>
+
+
         <Button
             android:id="@+id/register"
             android:layout_width="match_parent"
@@ -120,6 +143,15 @@
             android:text="注册"
             android:textColor="#ffff"
             android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/contact"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="联系我们"
+            android:textAlignment="center"
+            android:textColor="@color/colorAccent"
+            android:textSize="16sp" />
     </LinearLayout>
 
 </RelativeLayout>

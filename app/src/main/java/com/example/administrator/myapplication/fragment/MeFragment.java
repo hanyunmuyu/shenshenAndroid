@@ -86,7 +86,7 @@ public class MeFragment extends TakePhotoFragment {
                             .load(dataBean.getAvatar())
                             .transform(new CircleTransform())
                             .into(avatar);
-                    nickName.setText(dataBean.getNick_name());
+                    nickName.setText(dataBean.getName());
                 }
 
             }
@@ -191,12 +191,12 @@ public class MeFragment extends TakePhotoFragment {
 
     @OnClick(R.id.editBtn)
     public void editUserInfo() {
-        startActivity(new Intent(getContext(), UserActivity.class));
+//        startActivity(new Intent(getContext(), UserActivity.class));
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        initData();
+//        initData();
     }
 }
