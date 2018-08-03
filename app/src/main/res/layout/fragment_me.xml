@@ -18,23 +18,23 @@
 
             <ImageView
                 android:id="@+id/scan"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
                 android:layout_alignParentStart="true"
                 android:layout_centerHorizontal="true"
                 android:src="@mipmap/scan" />
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="20dp"
+                android:layout_height="16dp"
                 android:layout_centerInParent="true"
                 android:text="我的"
                 android:textSize="16sp" />
 
             <ImageView
                 android:id="@+id/capture"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:src="@mipmap/capture" />
@@ -55,7 +55,7 @@
             <RelativeLayout
                 android:id="@+id/editBtn"
                 android:layout_width="0dp"
-                android:layout_height="20dp"
+                android:layout_height="16dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10dp"
                 android:layout_weight="1"
@@ -69,16 +69,16 @@
                     android:textAlignment="center" />
 
                 <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/nickName"
                     android:src="@mipmap/male" />
 
                 <ImageView
                     android:id="@+id/arrowRight"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_gravity="end"
@@ -186,107 +186,107 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="16dp"
             android:orientation="vertical">
 
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="16dp">
 
                 <ImageView
                     android:id="@+id/friendIcon"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
                     android:src="@mipmap/friend" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/friendIcon"
-                    android:paddingLeft="20dp"
+                    android:paddingLeft="16dp"
                     android:text="我的校友"
-                    android:textSize="20sp" />
+                    android:textSize="16sp" />
             </RelativeLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="2dp"
-                android:background="#336b6868" />
+                android:background="#33797878" />
 
             <RelativeLayout
                 android:id="@+id/myClub"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="16dp">
 
                 <ImageView
                     android:id="@+id/clubIcon"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
                     android:src="@mipmap/club" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/clubIcon"
-                    android:paddingLeft="20dp"
+                    android:paddingLeft="16dp"
                     android:text="我的社团"
-                    android:textSize="20sp" />
+                    android:textSize="16sp" />
             </RelativeLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="2dp"
-                android:background="#336b6868" />
+                android:background="#33797878" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="16dp">
 
                 <ImageView
                     android:id="@+id/classIcon"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
                     android:src="@mipmap/classicon" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/classIcon"
-                    android:paddingLeft="20dp"
+                    android:paddingLeft="16dp"
                     android:text="我的班级"
-                    android:textSize="20sp" />
+                    android:textSize="16sp" />
             </RelativeLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="2dp"
-                android:background="#336b6868" />
+                android:background="#33797878" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="16dp">
 
                 <ImageView
                     android:id="@+id/schoolIcon"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
                     android:src="@mipmap/school" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/schoolIcon"
-                    android:paddingLeft="20dp"
+                    android:paddingLeft="16dp"
                     android:text="我的校园"
-                    android:textSize="20sp" />
+                    android:textSize="16sp" />
             </RelativeLayout>
 
 
@@ -296,7 +296,7 @@
             android:id="@+id/logout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="16dp"
             android:background="@color/colorAccent"
             android:text="退出"
             android:textColor="#FFFFFFFF"
