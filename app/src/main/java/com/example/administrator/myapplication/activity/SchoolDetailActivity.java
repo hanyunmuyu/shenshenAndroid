@@ -122,6 +122,7 @@ public class SchoolDetailActivity extends FragmentActivity {
         mSchoolDetailAdapter = new SchoolDetailAdapter(getSupportFragmentManager(), mFragmentList, mTitles);
         mTabLayout.setTabMode(TabLayout.MODE_FIXED);
         mViewPager.setAdapter(mSchoolDetailAdapter);
+        mViewPager.setOffscreenPageLimit(2);
         mTabLayout.setupWithViewPager(mViewPager);
     }
 
