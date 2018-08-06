@@ -33,36 +33,17 @@
     </RelativeLayout>
 
     <TextView
-        android:maxLines="4"
         android:id="@+id/content"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:maxLines="4" />
 
-    <LinearLayout
+    <com.example.administrator.myapplication.myView.NineImageview
+        android:id="@+id/nineView"
         android:layout_width="match_parent"
-        android:layout_height="90dp"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content">
 
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@mipmap/dog" />
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@mipmap/dog" />
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@mipmap/dog" />
-    </LinearLayout>
-
-
+    </com.example.administrator.myapplication.myView.NineImageview>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -111,6 +92,7 @@
                 android:text="100" />
         </RelativeLayout>
     </LinearLayout>
+
 
     <View
         android:id="@+id/divider"

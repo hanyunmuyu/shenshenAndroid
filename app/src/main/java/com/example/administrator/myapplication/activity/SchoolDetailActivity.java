@@ -76,7 +76,8 @@ public class SchoolDetailActivity extends FragmentActivity {
 
     private void initData() {
         Bundle bundle = getIntent().getExtras();
-        this.schoolId = bundle.getInt("schoolId");
+//        this.schoolId = bundle.getInt("schoolId");
+        this.schoolId = 1;
         Call<SchoolBean> call = RetrofitManager.getInstance().getApiService(this).getSchoolDetail(schoolId);
         call.enqueue(new Callback<SchoolBean>() {
             @Override

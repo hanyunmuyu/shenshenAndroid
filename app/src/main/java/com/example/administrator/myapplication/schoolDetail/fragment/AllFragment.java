@@ -102,6 +102,7 @@ public class AllFragment extends Fragment {
                         map.put("title", dataBean.getTitle());
                         map.put("created_at", dataBean.getCreated_at());
                         map.put("content", dataBean.getContent());
+                        map.put("imgList", dataBean.getImage_list());
                         list.add(map);
                     }
                     mMapList.addAll(list);

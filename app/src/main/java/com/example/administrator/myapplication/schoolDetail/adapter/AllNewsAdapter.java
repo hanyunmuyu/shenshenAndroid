@@ -10,8 +10,11 @@ import android.widget.TextView;
 
 import com.example.administrator.myapplication.R;
 import com.example.administrator.myapplication.lib.CircleTransform;
+import com.example.administrator.myapplication.myView.NineImageview;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -40,7 +43,7 @@ public class AllNewsAdapter extends RecyclerView.Adapter<AllNewsAdapter.MyViewHo
         holder.title.setText((String) map.get("title"));
         holder.addTime.setText((String) map.get("created_at"));
         holder.content.setText((String) map.get("content"));
-
+        holder.mNineImageview.setLineNumber(3).setStringList((List<String>) map.get("imgList"));
     }
 
     @Override
@@ -57,6 +60,8 @@ public class AllNewsAdapter extends RecyclerView.Adapter<AllNewsAdapter.MyViewHo
         public TextView addTime;
         @BindView(R.id.content)
         public TextView content;
+        @BindView(R.id.nineView)
+        public NineImageview mNineImageview;
 
         public MyViewHolder(View itemView) {
             super(itemView);
