@@ -1,20 +1,32 @@
 package com.example.administrator.myapplication.myView;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class NineImageview extends ViewGroup {
     private List<String> mStringList;
     private int lineNumber = 3;
-    private Handler mHandler = new Handler();
+    private List<ImageView> mImageViews = new ArrayList<>();
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            String img = msg.getData().getString("img");
+            int index = msg.getData().getInt("index");
+            Picasso.get().load(img).fit().centerCrop().into(mImageViews.get(index));
+
+        }
+    };
 
     public NineImageview setStringList(List<String> stringList) {
         mStringList = stringList;
@@ -40,25 +52,24 @@ public class NineImageview extends ViewGroup {
 
     @Override
     protected void onLayout(boolean b, int i, int i1, int i2, int i3) {
-        for (int a = 0; a < mStringList.size(); a++) {
-            final int d = a;
-            final int index = a % lineNumber;
-            final int c = (int) Math.floor(a / lineNumber);
-            mHandler.post(new Runnable() {
-                @Override
-                public void run() {
-                    int w = getWidth() / lineNumber;
-                    ImageView imageView;
-                    imageView = new ImageView(getContext());
-                    addView(imageView);
-                    imageView.setPadding(2, 2, 2, 2);
-                    Picasso.get().load(mStringList.get(d)).fit().centerCrop().into(imageView);
-                    imageView.layout(index * w, c * w, (index + 1) * w, (c + 1) * w);
-                }
-            });
-            if (a >= mStringList.size()) {
-                break;
-            }
+        int width = getWidth();
+        int imgWidth = width / lineNumber;
+        int a = 0;
+        for (String img : mStringList) {
+            int index = a % lineNumber;
+            int line = (int) Math.ceil(a / lineNumber);
+            ImageView imageView = new ImageView(getContext());
+            imageView.setPadding(2, 2, 2, 2);
+            addView(imageView);
+            Message message = new Message();
+            Bundle bundle = new Bundle();
+            bundle.putString("img", img);
+            bundle.putInt("index", a);
+            message.setData(bundle);
+            mHandler.sendMessage(message);
+            mImageViews.add(imageView);
+            imageView.layout(index * imgWidth, line * imgWidth, (index + 1) * imgWidth, (line + 1) * imgWidth);
+            a++;
         }
     }
 
@@ -70,7 +81,7 @@ public class NineImageview extends ViewGroup {
         int heightMode = MeasureSpec.getMode(heightMeasureSpec);
         int height = MeasureSpec.getSize(heightMeasureSpec);
         int w = getWidth() / lineNumber;
-        int line = (int) Math.ceil(mStringList.size() / lineNumber);
-        setMeasuredDimension(width, w * line);
+        int line = (int) Math.floor(mStringList.size() / lineNumber) + 1;
+        setMeasuredDimension(width, line * w);
     }
 }
