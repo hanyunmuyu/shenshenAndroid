@@ -48,7 +48,7 @@ public class HomeFragment extends BaseFragment {
     private int totalPage = 1;
     private HomeRecyclerViewAdapter homeRecyclerViewAdapter;
     private List<Map<String, Object>> mapArrayList;
-
+    private Handler mHandler = new Handler();
     @BindView(R.id.rv)
     public RecyclerView recyclerView;
     @BindView(R.id.banner)
@@ -92,7 +92,7 @@ public class HomeFragment extends BaseFragment {
     }
 
     private void initView() {
-        new Handler().postDelayed(new Runnable() {
+        mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 scrollView.fullScroll(ScrollView.FOCUS_UP);
@@ -151,7 +151,7 @@ public class HomeFragment extends BaseFragment {
                 mapArrayList.addAll(mapList);
                 homeRecyclerViewAdapter.notifyDataSetChanged();
                 if (page > 1) {
-                    new Handler().postDelayed(new Runnable() {
+                    mHandler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             scrollView.fullScroll(ScrollView.FOCUS_DOWN);
