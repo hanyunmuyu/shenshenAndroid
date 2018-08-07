@@ -68,9 +68,15 @@ public class HomeFragment extends BaseFragment {
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout r) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        scrollView.fullScroll(ScrollView.FOCUS_UP);
+                    }
+                }, 200);
                 page = 1;
                 initData();
-                homeRecyclerViewAdapter.refrresh();
+                homeRecyclerViewAdapter.refresh();
                 refreshLayout.finishRefresh(500);
             }
         });
@@ -116,6 +122,17 @@ public class HomeFragment extends BaseFragment {
             public void onResponse(Call<SchoolRecommendBean> call, Response<SchoolRecommendBean> response) {
 
                 SchoolRecommendBean schoolRecommendBean = response.body();
+                if (page == 1) {
+                    List<String> stringList = new ArrayList<>();
+                    for (SchoolRecommendBean.DataBeanX.PlayerBean playerBean : schoolRecommendBean.getData().getPlayer()) {
+                        stringList.add(playerBean.getImage());
+                    }
+                    banner.setBannerStyle(BannerConfig.CENTER);
+                    banner.setImageLoader(new GlideImageLoader());
+                    //设置图片集合
+                    banner.setImages(stringList);
+                    banner.start();
+                }
                 totalPage = schoolRecommendBean.getData().getTotalPage();
                 List<Map<String, Object>> mapList = new ArrayList<>();
                 for (SchoolRecommendBean.DataBeanX.DataBean dataBean : schoolRecommendBean.getData().getData()) {
@@ -125,6 +142,7 @@ public class HomeFragment extends BaseFragment {
                     map.put("name", dataBean.getName());
                     map.put("title", dataBean.getTitle());
                     map.put("content", dataBean.getDescription());
+                    map.put("imgList", dataBean.getImage_list());
                     map.put("favoriteNumber", 100);
                     map.put("collectionNumber", 1000);
                     map.put("commentNumber", 1000);
@@ -132,6 +150,14 @@ public class HomeFragment extends BaseFragment {
                 }
                 mapArrayList.addAll(mapList);
                 homeRecyclerViewAdapter.notifyDataSetChanged();
+                if (page > 1) {
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            scrollView.fullScroll(ScrollView.FOCUS_DOWN);
+                        }
+                    }, 100);
+                }
                 page++;
             }
 

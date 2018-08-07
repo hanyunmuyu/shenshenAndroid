@@ -43,82 +43,71 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/content"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
-        <ImageView
-            android:layout_width="90dp"
-            android:layout_height="match_parent"
-            android:src="@mipmap/avatar" />
+        <com.example.administrator.myapplication.myView.NineImageview
+            android:id="@+id/nineView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></com.example.administrator.myapplication.myView.NineImageview>
     </LinearLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
         android:orientation="horizontal">
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true">
-
-            <ImageView
-                android:id="@+id/collectionIcon"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@mipmap/favorite" />
-
-            <TextView
-                android:id="@+id/collectionNumber"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/collectionIcon" />
-        </RelativeLayout>
 
         <RelativeLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true">
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1">
 
             <ImageView
                 android:id="@+id/commentIcon"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
+                android:layout_centerHorizontal="true"
                 android:src="@mipmap/comment" />
 
             <TextView
                 android:id="@+id/commentNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
                 android:layout_toRightOf="@+id/commentIcon" />
         </RelativeLayout>
 
+
         <RelativeLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true">
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1">
 
             <ImageView
                 android:id="@+id/favoriteIcon"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
+                android:layout_centerHorizontal="true"
                 android:src="@mipmap/good" />
 
             <TextView
                 android:id="@+id/favoriteNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
                 android:layout_toRightOf="@+id/favoriteIcon" />
         </RelativeLayout>
 
-    </RelativeLayout>
+    </LinearLayout>
 
     <View
         android:layout_width="match_parent"

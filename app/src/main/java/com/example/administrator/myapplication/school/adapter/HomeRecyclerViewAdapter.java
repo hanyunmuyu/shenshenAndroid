@@ -10,10 +10,14 @@ import android.widget.TextView;
 
 import com.example.administrator.myapplication.R;
 import com.example.administrator.myapplication.lib.CircleTransform;
+import com.example.administrator.myapplication.myView.NineImageview;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 import java.util.Map;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerViewAdapter.MyViewHolder> {
     private List<Map<String, Object>> mapArrayList;
@@ -40,8 +44,8 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
         holder.title.setText((String) map.get("title"));
         holder.content.setText((String) map.get("content"));
         holder.favoriteNumber.setText(String.valueOf(map.get("favoriteNumber")));
-        holder.collectionNumber.setText(String.valueOf(map.get("collectionNumber")));
         holder.commentNumber.setText(String.valueOf(map.get("commentNumber")));
+        holder.mNineImageview.setStringList((List<String>) map.get("imgList"));
     }
 
     @Override
@@ -56,20 +60,22 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
         public TextView title;
         public TextView content;
         public TextView favoriteNumber;
-        public TextView collectionNumber;
         public TextView commentNumber;
+        @BindView(R.id.nineView)
+        public NineImageview mNineImageview;
         private OnItemClickListener onItemClickListener;
 
         public MyViewHolder(View itemView, OnItemClickListener onItemClickListener) {
 
             super(itemView);
+            ButterKnife.bind(this, itemView);
+
             pic = itemView.findViewById(R.id.pic);
             name = itemView.findViewById(R.id.name);
             addTime = itemView.findViewById(R.id.addTime);
             title = itemView.findViewById(R.id.title);
             content = itemView.findViewById(R.id.content);
             favoriteNumber = itemView.findViewById(R.id.favoriteNumber);
-            collectionNumber = itemView.findViewById(R.id.collectionNumber);
             commentNumber = itemView.findViewById(R.id.commentNumber);
             this.onItemClickListener = onItemClickListener;
             itemView.setOnClickListener(this);
@@ -88,7 +94,7 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
     }
-    public void refrresh() {
+    public void refresh() {
         mapArrayList.clear();
     }
 }
