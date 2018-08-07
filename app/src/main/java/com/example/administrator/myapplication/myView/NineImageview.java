@@ -81,7 +81,7 @@ public class NineImageview extends ViewGroup {
         int heightMode = MeasureSpec.getMode(heightMeasureSpec);
         int height = MeasureSpec.getSize(heightMeasureSpec);
         int w = getWidth() / lineNumber;
-        int line = (int) Math.floor(mStringList.size() / lineNumber) + 1;
+        int line =(int) Math.ceil((float) mStringList.size() / lineNumber);
         setMeasuredDimension(width, line * w);
     }
 }
