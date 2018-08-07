@@ -44,6 +44,7 @@ public class SchoolFragment extends Fragment {
         fragmentList.add(new ClubFragment());
 
         homeAdapter = new HomeAdapter(getChildFragmentManager(), fragmentList, titles);
+        viewPager.setOffscreenPageLimit(2);
         viewPager.setAdapter(homeAdapter);
 
         tabLayout.setupWithViewPager(viewPager);
