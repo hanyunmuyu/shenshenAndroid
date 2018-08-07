@@ -19,6 +19,8 @@ import com.example.administrator.myapplication.GlideImageLoader;
 import com.example.administrator.myapplication.R;
 import com.example.administrator.myapplication.api.ApiService;
 import com.example.administrator.myapplication.bean.HomeBean;
+import com.example.administrator.myapplication.bean.SchoolRecommendBean;
+import com.example.administrator.myapplication.lib.RetrofitManager;
 import com.example.administrator.myapplication.school.adapter.HomeRecyclerViewAdapter;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
@@ -46,6 +48,8 @@ public class HomeFragment extends BaseFragment {
     public Retrofit retrofit;
     public ApiService api;
     private Integer page = 1;
+    private HomeRecyclerViewAdapter homeRecyclerViewAdapter;
+    private List<Map<String, Object>> mapArrayList;
 
     @BindView(R.id.rv)
     public RecyclerView recyclerView;
@@ -90,20 +94,20 @@ public class HomeFragment extends BaseFragment {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        List<Map<String, Object>> mapArrayList = new ArrayList<>();
-        for (int i = 0; i < 16; i++) {
-            Map<String, Object> map = new ArrayMap<>();
-            map.put("pic", "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1530787601738&di=fadc5579bcd1e747db056df10cea82d4&imgtype=0&src=http%3A%2F%2Fimg.pconline.com.cn%2Fimages%2Fupload%2Fupc%2Ftx%2Fitbbs%2F1408%2F18%2Fc23%2F37570958_1408354006609_mthumb.jpg");
-            map.put("addTime", "2018-07-05 23:19");
-            map.put("name", "PLMM");
-            map.put("title", "这个MM真靓");
-            map.put("content", "这样的MM有谁喜欢呢？送你一打！哈哈哈哈这样的MM有谁喜欢呢？送你一打！哈哈哈哈这样的MM有谁喜欢呢？送你一打！哈哈哈哈");
-            map.put("favoriteNumber", 100);
-            map.put("collectionNumber", 1000);
-            map.put("commentNumber", 1000);
-            mapArrayList.add(map);
-        }
-        HomeRecyclerViewAdapter homeRecyclerViewAdapter = new HomeRecyclerViewAdapter(mapArrayList, getContext());
+        mapArrayList = new ArrayList<>();
+//        for (int i = 0; i < 16; i++) {
+//            Map<String, Object> map = new ArrayMap<>();
+//            map.put("pic", "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1530787601738&di=fadc5579bcd1e747db056df10cea82d4&imgtype=0&src=http%3A%2F%2Fimg.pconline.com.cn%2Fimages%2Fupload%2Fupc%2Ftx%2Fitbbs%2F1408%2F18%2Fc23%2F37570958_1408354006609_mthumb.jpg");
+//            map.put("addTime", "2018-07-05 23:19");
+//            map.put("name", "PLMM");
+//            map.put("title", "这个MM真靓");
+//            map.put("content", "这样的MM有谁喜欢呢？送你一打！哈哈哈哈这样的MM有谁喜欢呢？送你一打！哈哈哈哈这样的MM有谁喜欢呢？送你一打！哈哈哈哈");
+//            map.put("favoriteNumber", 100);
+//            map.put("collectionNumber", 1000);
+//            map.put("commentNumber", 1000);
+//            mapArrayList.add(map);
+//        }
+        homeRecyclerViewAdapter = new HomeRecyclerViewAdapter(mapArrayList, getContext());
         homeRecyclerViewAdapter.setOnItemClickListener(new HomeRecyclerViewAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int postion) {
@@ -111,6 +115,7 @@ public class HomeFragment extends BaseFragment {
             }
         });
         recyclerView.setAdapter(homeRecyclerViewAdapter);
+        initData();
 
         return view;
     }
@@ -165,6 +170,38 @@ public class HomeFragment extends BaseFragment {
 
             @Override
             public void onFailure(Call<HomeBean> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void initData() {
+        Call<SchoolRecommendBean> call = RetrofitManager.getInstance().getApiService(getContext()).getSchoolRecommendList(1);
+        call.enqueue(new Callback<SchoolRecommendBean>() {
+            @Override
+            public void onResponse(Call<SchoolRecommendBean> call, Response<SchoolRecommendBean> response) {
+                SchoolRecommendBean schoolRecommendBean = response.body();
+//                SchoolRecommendBean.DataBeanX.DataBean dataBean = (SchoolRecommendBean.DataBeanX.DataBean) schoolRecommendBean.getData().getData();
+                List<Map<String, Object>> mapList = new ArrayList<>();
+
+                for (SchoolRecommendBean.DataBeanX.DataBean dataBean : schoolRecommendBean.getData().getData()) {
+                    Map<String, Object> map = new ArrayMap<>();
+                    map.put("pic",dataBean.getLogo());
+                    map.put("addTime", dataBean.getCreated_at());
+                    map.put("name", dataBean.getName());
+                    map.put("title",dataBean.getTitle());
+                    map.put("content",dataBean.getDescription());
+                    map.put("favoriteNumber", 100);
+                    map.put("collectionNumber", 1000);
+                    map.put("commentNumber", 1000);
+                    mapList.add(map);
+                }
+                mapArrayList.addAll(mapList);
+                homeRecyclerViewAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<SchoolRecommendBean> call, Throwable t) {
 
             }
         });

@@ -9,6 +9,7 @@ import com.example.administrator.myapplication.bean.SchoolAllBean;
 import com.example.administrator.myapplication.bean.SchoolBean;
 import com.example.administrator.myapplication.bean.SchoolListBean;
 import com.example.administrator.myapplication.bean.SchoolNewsListBean;
+import com.example.administrator.myapplication.bean.SchoolRecommendBean;
 import com.example.administrator.myapplication.bean.UploadBean;
 import com.example.administrator.myapplication.bean.UserBean;
 
@@ -71,6 +72,9 @@ public interface ApiService {
 
     @GET("school/news")
     Call<SchoolNewsListBean> getSchoolNewsList(@Query("schoolId") int schoolId, @Query("page") int page);
+
+    @GET("school/recommend")
+    Call<SchoolRecommendBean> getSchoolRecommendList(@Query("page") int page);
 
     @GET("school/all")
     Call<SchoolAllBean> getAllSchool();

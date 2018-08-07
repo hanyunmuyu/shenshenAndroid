@@ -49,7 +49,11 @@ public class NineImageview extends ViewGroup {
     public NineImageview(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
-
+    private void init() {
+        if (lineNumber > mStringList.size()) {
+            lineNumber = mStringList.size();
+        }
+    }
     @Override
     protected void onLayout(boolean b, int i, int i1, int i2, int i3) {
         int width = getWidth();
@@ -75,6 +79,7 @@ public class NineImageview extends ViewGroup {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        init();
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         int widthMode = MeasureSpec.getMode(widthMeasureSpec);
         int width = MeasureSpec.getSize(widthMeasureSpec);
