@@ -58,7 +58,7 @@ public class UserActivity extends Activity {
     }
 
     private void initData() {
-        Call<SchoolAllBean> call = RetrofitManager.getInstance().getApiService(this).getAllSchool();
+        Call<SchoolAllBean> call = RetrofitManager.getInstance().getApiService().getAllSchool();
         call.enqueue(new Callback<SchoolAllBean>() {
             @Override
             public void onResponse(Call<SchoolAllBean> call, Response<SchoolAllBean> response) {

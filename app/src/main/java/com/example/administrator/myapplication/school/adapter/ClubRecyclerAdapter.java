@@ -20,7 +20,7 @@ import butterknife.ButterKnife;
 public class ClubRecyclerAdapter extends RecyclerView.Adapter<ClubRecyclerAdapter.ClubViewHolder> {
     private Context context;
     private List<Map<String, Object>> mapList;
-
+    private OnItemClickListener mOnItemClickListener;
     public ClubRecyclerAdapter(Context context, List<Map<String, Object>> mapList) {
         this.context = context;
         this.mapList = mapList;
@@ -28,7 +28,7 @@ public class ClubRecyclerAdapter extends RecyclerView.Adapter<ClubRecyclerAdapte
 
     @Override
     public ClubViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        ClubViewHolder clubViewHolder = new ClubViewHolder(LayoutInflater.from(context).inflate(R.layout.school_club_item, parent, false));
+        ClubViewHolder clubViewHolder = new ClubViewHolder(LayoutInflater.from(context).inflate(R.layout.school_club_item, parent, false),mOnItemClickListener);
         return clubViewHolder;
     }
 
@@ -44,24 +44,34 @@ public class ClubRecyclerAdapter extends RecyclerView.Adapter<ClubRecyclerAdapte
         return mapList == null ? 0 : mapList.size();
     }
 
-    public static class ClubViewHolder extends RecyclerView.ViewHolder {
+    public static class ClubViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         @BindView(R.id.logo)
         public ImageView logo;
 
         @BindView(R.id.title)
         public TextView title;
 
-        public ClubViewHolder(View itemView) {
+        private OnItemClickListener mOnItemClickListener;
+        public ClubViewHolder(View itemView,OnItemClickListener onItemClickListener) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            mOnItemClickListener = onItemClickListener;
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            mOnItemClickListener.onItemClick(view,getPosition());
         }
     }
-
-    public void addData(List<Map<String, Object>> mapArrayList) {
-        this.mapList.addAll(mapArrayList);
-    }
-
     public void refresh() {
         this.mapList.clear();
+    }
+    public interface OnItemClickListener{
+        public void onItemClick(View view, int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.mOnItemClickListener = onItemClickListener;
     }
 }

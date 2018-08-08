@@ -81,7 +81,7 @@ public class RegisterActivity extends Activity {
     private void initData() {
         School school = new School("请选择高校", 0);
         mSchoolBeans.add(school);
-        Call<SchoolAllBean> call = RetrofitManager.getInstance().getApiService(this).getAllSchool();
+        Call<SchoolAllBean> call = RetrofitManager.getInstance().getApiService().getAllSchool();
         call.enqueue(new Callback<SchoolAllBean>() {
             @Override
             public void onResponse(Call<SchoolAllBean> call, Response<SchoolAllBean> response) {
@@ -166,7 +166,7 @@ public class RegisterActivity extends Activity {
                         Toast.makeText(getApplicationContext(), "密码不可以为空", Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    Call<BaseBean> call = RetrofitManager.getInstance().getApiService(getApplicationContext()).register(userName, pwd, gender, schoolId);
+                    Call<BaseBean> call = RetrofitManager.getInstance().getApiService().register(userName, pwd, gender, schoolId);
                     call.enqueue(new Callback<BaseBean>() {
                         @Override
                         public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {

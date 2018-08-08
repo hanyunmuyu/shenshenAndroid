@@ -123,7 +123,7 @@ public class HomeFragment extends BaseFragment {
             refreshLayout.finishLoadMore(500);
             return;
         }
-        Call<SchoolRecommendBean> call = RetrofitManager.getInstance().getApiService(getContext()).getSchoolRecommendList(page);
+        Call<SchoolRecommendBean> call = RetrofitManager.getInstance().getApiService().getSchoolRecommendList(page);
         call.enqueue(new Callback<SchoolRecommendBean>() {
             @Override
             public void onResponse(Call<SchoolRecommendBean> call, Response<SchoolRecommendBean> response) {

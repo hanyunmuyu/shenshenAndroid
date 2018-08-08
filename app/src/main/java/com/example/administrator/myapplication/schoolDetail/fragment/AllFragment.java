@@ -89,7 +89,7 @@ public class AllFragment extends Fragment {
     }
 
     private void initData() {
-        Call<SchoolNewsListBean> call = RetrofitManager.getInstance().getApiService(getContext()).getSchoolNewsList(schoolId, page);
+        Call<SchoolNewsListBean> call = RetrofitManager.getInstance().getApiService().getSchoolNewsList(schoolId, page);
         call.enqueue(new Callback<SchoolNewsListBean>() {
             @Override
             public void onResponse(Call<SchoolNewsListBean> call, Response<SchoolNewsListBean> response) {

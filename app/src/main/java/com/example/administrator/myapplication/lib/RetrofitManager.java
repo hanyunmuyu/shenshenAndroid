@@ -3,6 +3,7 @@ package com.example.administrator.myapplication.lib;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.example.administrator.myapplication.MainActivity;
 import com.example.administrator.myapplication.api.Api;
 import com.example.administrator.myapplication.api.ApiService;
 
@@ -30,8 +31,8 @@ public class RetrofitManager {
         return retrofitManager;
     }
 
-    public ApiService getApiService(Context context) {
-        sharedPreferences = context.getSharedPreferences("user", Context.MODE_PRIVATE);
+    public ApiService getApiService() {
+        sharedPreferences = MainActivity.mContext.getSharedPreferences("user", Context.MODE_PRIVATE);
         final String token = sharedPreferences.getString("token", null);
 
         OkHttpClient httpClient =

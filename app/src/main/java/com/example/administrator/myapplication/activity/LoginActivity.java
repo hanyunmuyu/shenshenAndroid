@@ -52,7 +52,7 @@ public class LoginActivity extends Activity {
             Toast.makeText(getApplicationContext(), "密码不可以为空", Toast.LENGTH_SHORT).show();
             return;
         }
-        Call<UserBean> call = RetrofitManager.getInstance().getApiService(this).login(userName, pass);
+        Call<UserBean> call = RetrofitManager.getInstance().getApiService().login(userName, pass);
         call.enqueue(new Callback<UserBean>() {
             @Override
             public void onResponse(Call<UserBean> call, Response<UserBean> response) {

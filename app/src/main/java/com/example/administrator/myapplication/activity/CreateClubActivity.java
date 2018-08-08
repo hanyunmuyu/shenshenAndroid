@@ -61,7 +61,7 @@ public class CreateClubActivity extends TakePhotoActivity {
     }
 
     private void initData() {
-        Call<ClubCategory> call = RetrofitManager.getInstance().getApiService(this).getClubCategory();
+        Call<ClubCategory> call = RetrofitManager.getInstance().getApiService().getClubCategory();
         call.enqueue(new Callback<ClubCategory>() {
             @Override
             public void onResponse(Call<ClubCategory> call, Response<ClubCategory> response) {
@@ -164,7 +164,7 @@ public class CreateClubActivity extends TakePhotoActivity {
         RequestBody description =
                 RequestBody.create(
                         MediaType.parse("multipart/form-data"), descriptionString);
-        Call<UploadBean> call = RetrofitManager.getInstance().getApiService(this).createClub(description, body, name, category, desc);
+        Call<UploadBean> call = RetrofitManager.getInstance().getApiService().createClub(description, body, name, category, desc);
         call.enqueue(new Callback<UploadBean>() {
             @Override
             public void onResponse(Call<UploadBean> call, Response<UploadBean> response) {

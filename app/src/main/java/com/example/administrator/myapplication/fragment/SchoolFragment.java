@@ -25,7 +25,7 @@ public class SchoolFragment extends Fragment {
     private ViewPager viewPager;
     private HomeAdapter homeAdapter;
     private List<Fragment> fragmentList;
-    private String[] titles = {"推荐", "校园", "社团"};
+    private String[] titles = {"推荐", "社团", "校园"};
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,8 +40,8 @@ public class SchoolFragment extends Fragment {
         fragmentList = new ArrayList<>();
 
         fragmentList.add(new HomeFragment());
-        fragmentList.add(new com.example.administrator.myapplication.school.SchoolFragment());
         fragmentList.add(new ClubFragment());
+        fragmentList.add(new com.example.administrator.myapplication.school.SchoolFragment());
 
         homeAdapter = new HomeAdapter(getChildFragmentManager(), fragmentList, titles);
         viewPager.setOffscreenPageLimit(2);

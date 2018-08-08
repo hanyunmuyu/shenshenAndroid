@@ -27,9 +27,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends FragmentActivity {
-
+    public static Context mContext;
     private LinearLayout bottom;
-    private int position = 2;
+    private int position = 1;
     private int tmpPosition;
     private ExploreFragment exploreFragment;
     private HomeFragment homeFragment;
@@ -46,6 +46,7 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
+        mContext = getApplicationContext();
         tmpPosition = position;
         sharedPreferences = getSharedPreferences("user", Context.MODE_PRIVATE);
         initView();

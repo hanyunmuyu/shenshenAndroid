@@ -81,7 +81,7 @@ public class SchoolDetailActivity extends FragmentActivity {
         Bundle bundle = getIntent().getExtras();
         this.schoolId = bundle.getInt("schoolId");
 //        this.schoolId = 1;
-        Call<SchoolBean> call = RetrofitManager.getInstance().getApiService(this).getSchoolDetail(schoolId);
+        Call<SchoolBean> call = RetrofitManager.getInstance().getApiService().getSchoolDetail(schoolId);
         call.enqueue(new Callback<SchoolBean>() {
             @Override
             public void onResponse(Call<SchoolBean> call, Response<SchoolBean> response) {
@@ -133,7 +133,7 @@ public class SchoolDetailActivity extends FragmentActivity {
     @OnClick(R.id.payAttentionBtn)
     public void payAttention(View view) {
         LoadingDialog.make(this).show();
-        Call<BaseBean> call = RetrofitManager.getInstance().getApiService(this).payAttentionToSchool(schoolId);
+        Call<BaseBean> call = RetrofitManager.getInstance().getApiService().payAttentionToSchool(schoolId);
         call.enqueue(new Callback<BaseBean>() {
             @Override
             public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {
@@ -172,7 +172,7 @@ public class SchoolDetailActivity extends FragmentActivity {
     public void signIn(View view) {
         LoadingDialog.make(this).show();
 
-        Call<BaseBean> call = RetrofitManager.getInstance().getApiService(this).signIn(schoolId);
+        Call<BaseBean> call = RetrofitManager.getInstance().getApiService().signIn(schoolId);
         call.enqueue(new Callback<BaseBean>() {
             @Override
             public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {

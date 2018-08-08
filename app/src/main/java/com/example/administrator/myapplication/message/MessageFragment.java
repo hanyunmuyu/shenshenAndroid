@@ -97,7 +97,7 @@ public class MessageFragment extends Fragment {
     }
 
     private void initData() {
-        Call<MessageBean> call = RetrofitManager.getInstance().getApiService(getContext()).getUserMessage(page, tag);
+        Call<MessageBean> call = RetrofitManager.getInstance().getApiService().getUserMessage(page, tag);
         call.enqueue(new Callback<MessageBean>() {
             @Override
             public void onResponse(Call<MessageBean> call, Response<MessageBean> response) {

@@ -73,7 +73,7 @@ public class MeFragment extends TakePhotoFragment {
     }
 
     private void initData() {
-        Call<UserBean> call = RetrofitManager.getInstance().getApiService(getContext()).getUserInfo();
+        Call<UserBean> call = RetrofitManager.getInstance().getApiService().getUserInfo();
         call.enqueue(new Callback<UserBean>() {
             @Override
             public void onResponse(Call<UserBean> call, Response<UserBean> response) {
@@ -165,7 +165,7 @@ public class MeFragment extends TakePhotoFragment {
         RequestBody description =
                 RequestBody.create(
                         MediaType.parse("multipart/form-data"), descriptionString);
-        Call<UploadBean> call = RetrofitManager.getInstance().getApiService(getContext()).updateAvatar(description, body);
+        Call<UploadBean> call = RetrofitManager.getInstance().getApiService().updateAvatar(description, body);
         call.enqueue(new Callback<UploadBean>() {
             @Override
             public void onResponse(Call<UploadBean> call, Response<UploadBean> response) {
