@@ -1,6 +1,7 @@
 package com.example.administrator.myapplication.school;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -12,10 +13,13 @@ import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.Toast;
 
+import com.example.administrator.myapplication.MainActivity;
 import com.example.administrator.myapplication.R;
+import com.example.administrator.myapplication.activity.ClubDetailActivity;
 import com.example.administrator.myapplication.api.Api;
 import com.example.administrator.myapplication.api.ApiService;
 import com.example.administrator.myapplication.bean.ClubListBean;
+import com.example.administrator.myapplication.lib.MyToast;
 import com.example.administrator.myapplication.lib.RetrofitManager;
 import com.example.administrator.myapplication.school.adapter.ClubRecyclerAdapter;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -90,7 +94,12 @@ public class ClubFragment extends Fragment {
         clubRecyclerAdapter.setOnItemClickListener(new ClubRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-
+                Map<String, Object> map = mapArrayList.get(position);
+                Intent intent = new Intent(MainActivity.mContext, ClubDetailActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putInt("clubId", (Integer) map.get("clubId"));
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
@@ -114,6 +123,7 @@ public class ClubFragment extends Fragment {
                     Map<String, Object> map = new HashMap<>();
                     map.put("logo", dataBean.getClub_logo());
                     map.put("title", dataBean.getClub_name());
+                    map.put("clubId", dataBean.getId());
                     mapList.add(map);
                 }
                 mapArrayList.addAll(mapList);
