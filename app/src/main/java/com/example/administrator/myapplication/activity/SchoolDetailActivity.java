@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,6 +60,8 @@ public class SchoolDetailActivity extends FragmentActivity {
     public TextView departmentNumber;
     @BindView(R.id.attentionNumber)
     public TextView attentionNumber;
+    @BindView(R.id.clubBtn)
+    public RelativeLayout clubBtn;
 
     private String[] mTitles = {"全部", "热门", "精华"};
     private SchoolDetailAdapter mSchoolDetailAdapter;
@@ -184,5 +187,11 @@ public class SchoolDetailActivity extends FragmentActivity {
 
             }
         });
+    }
+
+    @OnClick(R.id.clubBtn)
+    public void SchoolClub() {
+        Intent intent = new Intent(getApplicationContext(), SchoolClubActivity.class);
+        startActivity(intent);
     }
 }
