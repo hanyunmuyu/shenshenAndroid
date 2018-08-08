@@ -51,8 +51,9 @@ public class MessageFragment extends Fragment {
     private void initView() {
         mTabLayout.setTabMode(TabLayout.MODE_FIXED);
         mFragmentList = new ArrayList<>();
-        mFragmentList.add(new com.example.administrator.myapplication.message.MessageFragment());
-        mFragmentList.add(new NotificationFragment());
+        mFragmentList.add(new com.example.administrator.myapplication.message.MessageFragment("msg"));
+        mFragmentList.add(new com.example.administrator.myapplication.message.MessageFragment("notice"));
+//        mFragmentList.add(new NotificationFragment());
         mMessageAdapter = new MessageAdapter(getChildFragmentManager(), mFragmentList, titles);
         mViewPager.setAdapter(mMessageAdapter);
         mTabLayout.setupWithViewPager(mViewPager);

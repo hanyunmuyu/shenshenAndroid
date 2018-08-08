@@ -10,6 +10,6 @@ import com.youth.banner.loader.ImageLoader;
 public class GlideImageLoader extends ImageLoader {
     @Override
     public void displayImage(Context context, Object path, ImageView imageView) {
-        Picasso.get().load((String) path).error(R.mipmap.dog).into(imageView);
+        Picasso.get().load((String) path).fit().centerCrop().error(R.mipmap.dog).into(imageView);
     }
 }

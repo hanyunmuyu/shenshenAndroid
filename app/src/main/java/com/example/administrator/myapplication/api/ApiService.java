@@ -84,8 +84,8 @@ public interface ApiService {
     Call<BaseBean> signIn(@Query("schoolId") int schoolId);
 
     @POST("register")
-    Call<BaseBean> register(@Query("name") String name, @Query("password") String password, @Query("gender") int gender,@Query("schoolId") int schoolId);
+    Call<BaseBean> register(@Query("name") String name, @Query("password") String password, @Query("gender") int gender, @Query("schoolId") int schoolId);
 
     @GET("profile/user/message")
-    Call<MessageBean> getUserMessage(@Query("page") int page);
+    Call<MessageBean> getUserMessage(@Query("page") int page, @Query("tag") String tag);
 }

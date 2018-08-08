@@ -1,6 +1,7 @@
 package com.example.administrator.myapplication.message;
 
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -43,11 +44,17 @@ public class MessageFragment extends Fragment {
     private int page = 0;
     private MessageRecyclerviewAdapter mMessageRecyclerviewAdapter;
     private List<Map<String, Object>> mMapList;
+    private String tag;
 
     public MessageFragment() {
         // Required empty public constructor
+
     }
 
+    @SuppressLint("ValidFragment")
+    public MessageFragment(String tag) {
+        this.tag = tag;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -90,7 +97,7 @@ public class MessageFragment extends Fragment {
     }
 
     private void initData() {
-        Call<MessageBean> call = RetrofitManager.getInstance().getApiService(getContext()).getUserMessage(page);
+        Call<MessageBean> call = RetrofitManager.getInstance().getApiService(getContext()).getUserMessage(page, tag);
         call.enqueue(new Callback<MessageBean>() {
             @Override
             public void onResponse(Call<MessageBean> call, Response<MessageBean> response) {

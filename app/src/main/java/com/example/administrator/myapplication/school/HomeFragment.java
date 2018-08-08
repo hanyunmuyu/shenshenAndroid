@@ -77,14 +77,20 @@ public class HomeFragment extends BaseFragment {
                 page = 1;
                 initData();
                 homeRecyclerViewAdapter.refresh();
-                refreshLayout.finishRefresh(500);
             }
         });
         refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
                 initData();
-                refreshLayout.finishLoadMore(500);
+                if (page >= 2) {
+                    mHandler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            scrollView.fullScroll(ScrollView.FOCUS_DOWN);
+                        }
+                    }, 100);
+                }
             }
         });
         initData();
@@ -114,6 +120,7 @@ public class HomeFragment extends BaseFragment {
 
     private void initData() {
         if (page > totalPage) {
+            refreshLayout.finishLoadMore(500);
             return;
         }
         Call<SchoolRecommendBean> call = RetrofitManager.getInstance().getApiService(getContext()).getSchoolRecommendList(page);
@@ -150,14 +157,8 @@ public class HomeFragment extends BaseFragment {
                 }
                 mapArrayList.addAll(mapList);
                 homeRecyclerViewAdapter.notifyDataSetChanged();
-                if (page > 1) {
-                    mHandler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            scrollView.fullScroll(ScrollView.FOCUS_DOWN);
-                        }
-                    }, 100);
-                }
+                refreshLayout.finishRefresh(500);
+                refreshLayout.finishLoadMore(500);
                 page++;
             }
 
