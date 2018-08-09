@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.administrator.myapplication.R;
+import com.example.administrator.myapplication.lib.CropSquareTransformation;
 import com.example.administrator.myapplication.model.QrCodeModel;
 import com.squareup.picasso.Picasso;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
@@ -31,7 +32,7 @@ public class QrCodeActivity extends Activity {
         setContentView(R.layout.activity_qr_code);
         ButterKnife.bind(this);
         QrCodeModel qrCodeModel = (QrCodeModel) getIntent().getSerializableExtra("code");
-        Picasso.get().load(qrCodeModel.getPic()).fit().centerCrop().into(pic);
+        Picasso.get().load(qrCodeModel.getPic()).transform(new CropSquareTransformation()).fit().centerCrop().into(pic);
         title.setText(qrCodeModel.getTitle());
         qr.setImageBitmap(CodeUtils.createImage(qrCodeModel.getContent(), 1000, 1000, null));
     }
