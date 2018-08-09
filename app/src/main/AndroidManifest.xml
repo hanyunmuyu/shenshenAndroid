@@ -20,7 +20,11 @@
         android:theme="@style/AppTheme">
         <activity android:name=".activity.UserActivity" />
         <activity android:name=".activity.FlashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
         <activity android:name=".RegisterActivity" />
@@ -31,11 +35,7 @@
         <activity android:name=".activity.SchoolDetailActivity" />
         <activity android:name=".activity.SchoolClubActivity" />
         <activity android:name=".activity.ClubDetailActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 
