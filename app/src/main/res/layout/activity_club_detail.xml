@@ -37,7 +37,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <ImageView
@@ -48,6 +48,7 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_weight="4"
             android:orientation="vertical">
 
@@ -88,18 +89,32 @@
             <TextView
                 android:id="@+id/motto"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:text="莘莘，专注于大学校园信息共享平台" />
+                android:layout_height="wrap_content"
+                android:maxLines="4"
+                android:text="莘莘，专注于大学校园信息共享平台专注于大学校园信息共享平台专注于大学校园信息共享平台专注于大学校园信息共享平台" />
 
         </LinearLayout>
 
         <Button
+            android:id="@+id/signInBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:background="@color/submitBtn"
+            android:text="签到"
+            android:textColor="@color/gallery_white"
+            android:textSize="16sp"
+            android:visibility="gone" />
+
+        <Button
             android:id="@+id/payAttentionBtn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="关注" />
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_gravity="center_vertical"
+            android:background="@color/submitBtn"
+            android:text="关注"
+            android:textColor="@color/gallery_white"
+            android:textSize="16sp" />
+
     </LinearLayout>
 
     <LinearLayout
