@@ -13,6 +13,8 @@ import com.example.administrator.myapplication.MainActivity;
 import com.example.administrator.myapplication.R;
 import com.example.administrator.myapplication.clubDetail.adapter.ClubDetailAdapter;
 import com.example.administrator.myapplication.clubDetail.fragment.AllFragment;
+import com.example.administrator.myapplication.clubDetail.fragment.HotFragment;
+import com.example.administrator.myapplication.clubDetail.fragment.MemberFragment;
 import com.example.administrator.myapplication.model.QrCodeModel;
 import com.example.administrator.myapplication.myView.NineImageview;
 import com.squareup.picasso.Picasso;
@@ -35,7 +37,7 @@ public class ClubDetailActivity extends FragmentActivity {
 
 
     private int clubId;
-    private String[] mTitles = {"最新", "热门", "成员"};
+    private String[] mTitles = {"热门", "全部", "成员"};
     private List<Fragment> mFragmentList;
     private ClubDetailAdapter mClubDetailAdapter;
 
@@ -52,8 +54,8 @@ public class ClubDetailActivity extends FragmentActivity {
     private void initView() {
         Picasso.get().load(R.mipmap.dog).fit().centerCrop().into(logo);
         mFragmentList = new ArrayList<>();
-        mFragmentList.add(new AllFragment());
-        mFragmentList.add(new AllFragment());
+        mFragmentList.add(new MemberFragment());
+        mFragmentList.add(new HotFragment());
         mFragmentList.add(new AllFragment());
         mTabLayout.setTabMode(TabLayout.MODE_FIXED);
         mClubDetailAdapter = new ClubDetailAdapter(getSupportFragmentManager(), mFragmentList, mTitles);
