@@ -2,6 +2,7 @@ package com.example.administrator.myapplication.api;
 
 import com.example.administrator.myapplication.bean.BaseBean;
 import com.example.administrator.myapplication.bean.ClubCategory;
+import com.example.administrator.myapplication.bean.ClubDetailBean;
 import com.example.administrator.myapplication.bean.ClubListBean;
 import com.example.administrator.myapplication.bean.HomeBean;
 import com.example.administrator.myapplication.bean.MessageBean;
@@ -15,7 +16,6 @@ import com.example.administrator.myapplication.bean.UserBean;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
@@ -59,6 +59,13 @@ public interface ApiService {
 
     @GET("club/category")
     Call<ClubCategory> getClubCategory();
+
+
+    @GET("club/detail")
+    Call<ClubDetailBean> getClubDetail(@Query("clubId") int clubId);
+
+    @POST("profile/club/attention")
+    Call<BaseBean> payAttentionToClub(@Query("clubId") int clubId);
 
     @Multipart
     @POST("profile/club/create")

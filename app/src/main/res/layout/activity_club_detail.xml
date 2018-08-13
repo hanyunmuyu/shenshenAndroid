@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="2dp"
     android:orientation="vertical">
 
@@ -50,61 +50,34 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_weight="4"
+            android:layout_marginLeft="6dp"
+            android:layout_weight="1"
             android:orientation="vertical">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="6dp"
-                        android:text="体育"
-                        android:textSize="16sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="6dp"
-                        android:text="户外"
-                        android:textSize="16sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="6dp"
-                        android:text="交友"
-                        android:textSize="16sp" />
-                </LinearLayout>
-            </RelativeLayout>
-
-            <TextView
-                android:id="@+id/motto"
+            <LinearLayout
+                android:id="@+id/category"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:maxLines="4"
-                android:text="莘莘，专注于大学校园信息共享平台专注于大学校园信息共享平台专注于大学校园信息共享平台专注于大学校园信息共享平台" />
+                android:orientation="horizontal">
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="4" />
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/signInBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="20dp"
-            android:background="@color/submitBtn"
-            android:text="签到"
-            android:textColor="@color/gallery_white"
-            android:textSize="16sp"
-            android:visibility="gone" />
+        <!--<Button-->
+        <!--android:id="@+id/signInBtn"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="20dp"-->
+        <!--android:background="@color/submitBtn"-->
+        <!--android:text="签到"-->
+        <!--android:textColor="@color/gallery_white"-->
+        <!--android:textSize="16sp"-->
+        <!--android:visibility="gone" />-->
 
         <Button
             android:id="@+id/payAttentionBtn"
