@@ -1,9 +1,9 @@
 package com.example.administrator.myapplication.model;
 
-public class ClubMember {
+public class ClubMemberModel {
     private String mName;
     private String mAvatar;
-    private String mTitle;
+    private int mTitle;
 
     public String getName() {
         return mName;
@@ -22,10 +22,19 @@ public class ClubMember {
     }
 
     public String getTitle() {
-        return mTitle;
+        switch (mTitle) {
+            case 0:
+                return "粉丝";
+            case 1:
+                return "粉丝";
+            case 2:
+                return "管理员";
+            default:
+                return "";
+        }
     }
 
-    public void setTitle(String title) {
+    public void setTitle(int title) {
         mTitle = title;
     }
 }

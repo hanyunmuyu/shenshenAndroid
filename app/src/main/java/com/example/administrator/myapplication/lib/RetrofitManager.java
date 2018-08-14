@@ -24,9 +24,13 @@ public class RetrofitManager {
     private RetrofitManager() {
     }
 
-    public static synchronized RetrofitManager getInstance() {
+    public static RetrofitManager getInstance() {
         if (retrofitManager == null) {
-            retrofitManager = new RetrofitManager();
+            synchronized (RetrofitManager.class) {
+                if (retrofitManager == null) {
+                    retrofitManager = new RetrofitManager();
+                }
+            }
         }
         return retrofitManager;
     }

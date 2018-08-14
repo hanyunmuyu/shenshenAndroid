@@ -4,6 +4,7 @@ import com.example.administrator.myapplication.bean.BaseBean;
 import com.example.administrator.myapplication.bean.ClubCategory;
 import com.example.administrator.myapplication.bean.ClubDetailBean;
 import com.example.administrator.myapplication.bean.ClubListBean;
+import com.example.administrator.myapplication.bean.ClubUserBean;
 import com.example.administrator.myapplication.bean.HomeBean;
 import com.example.administrator.myapplication.bean.MessageBean;
 import com.example.administrator.myapplication.bean.SchoolAllBean;
@@ -13,6 +14,7 @@ import com.example.administrator.myapplication.bean.SchoolNewsListBean;
 import com.example.administrator.myapplication.bean.SchoolRecommendBean;
 import com.example.administrator.myapplication.bean.UploadBean;
 import com.example.administrator.myapplication.bean.UserBean;
+import com.example.administrator.myapplication.model.ClubMemberModel;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -60,6 +62,8 @@ public interface ApiService {
     @GET("club/category")
     Call<ClubCategory> getClubCategory();
 
+    @GET("club/member")
+    Call<ClubUserBean> getClubMember(@Query("clubId") int clubId, @Query("page") int page);
 
     @GET("club/detail")
     Call<ClubDetailBean> getClubDetail(@Query("clubId") int clubId);

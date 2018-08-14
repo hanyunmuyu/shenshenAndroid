@@ -72,7 +72,11 @@ public class ClubDetailActivity extends FragmentActivity {
 
     private void initView() {
         mFragmentList = new ArrayList<>();
-        mFragmentList.add(new MemberFragment());
+        MemberFragment memberFragment = new MemberFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt("clubId", clubId);
+        memberFragment.setArguments(bundle);
+        mFragmentList.add(memberFragment);
         mFragmentList.add(new HotFragment());
         mFragmentList.add(new AllFragment());
         mTabLayout.setTabMode(TabLayout.MODE_FIXED);
