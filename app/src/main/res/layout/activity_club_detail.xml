@@ -58,8 +58,7 @@
                 android:id="@+id/category"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-            </LinearLayout>
+                android:orientation="horizontal"></LinearLayout>
 
             <TextView
                 android:id="@+id/description"
@@ -81,11 +80,12 @@
 
         <Button
             android:id="@+id/payAttentionBtn"
-            android:layout_width="40dp"
+            android:layout_width="50dp"
             android:layout_height="20dp"
             android:layout_gravity="center_vertical"
             android:background="@color/submitBtn"
             android:text="关注"
+            android:textAlignment="center"
             android:textColor="@color/gallery_white"
             android:textSize="16sp" />
 
