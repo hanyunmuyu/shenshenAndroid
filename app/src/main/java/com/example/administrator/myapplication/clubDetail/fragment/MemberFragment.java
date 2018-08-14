@@ -56,7 +56,7 @@ public class MemberFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.club_detail_fragment_member, container, false);
         ButterKnife.bind(this, view);
-
+        clubId = getArguments().getInt("clubId");
         mClubMemberModelList = new ArrayList<>();
         initView();
         initData();
@@ -80,6 +80,7 @@ public class MemberFragment extends Fragment {
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 page = 1;
                 initData();
+                mMemberAdapter.refresh();
                 mSmartRefreshLayout.finishRefresh(500);
             }
         });
@@ -111,11 +112,5 @@ public class MemberFragment extends Fragment {
 
             }
         });
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        clubId = getArguments().getInt("clubId");
     }
 }

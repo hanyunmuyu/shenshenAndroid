@@ -26,7 +26,7 @@ public class ClubMemberModel {
             case 0:
                 return "粉丝";
             case 1:
-                return "粉丝";
+                return "成员";
             case 2:
                 return "管理员";
             default:

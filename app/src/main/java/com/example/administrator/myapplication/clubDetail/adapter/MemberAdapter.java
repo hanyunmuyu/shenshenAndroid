@@ -60,4 +60,8 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MemberHold
             ButterKnife.bind(this, itemView);
         }
     }
+
+    public void refresh() {
+        mClubMemberModels.clear();
+    }
 }

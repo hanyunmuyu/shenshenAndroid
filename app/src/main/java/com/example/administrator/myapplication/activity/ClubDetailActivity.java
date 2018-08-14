@@ -76,9 +76,10 @@ public class ClubDetailActivity extends FragmentActivity {
         Bundle bundle = new Bundle();
         bundle.putInt("clubId", clubId);
         memberFragment.setArguments(bundle);
-        mFragmentList.add(memberFragment);
+
         mFragmentList.add(new HotFragment());
         mFragmentList.add(new AllFragment());
+        mFragmentList.add(memberFragment);
         mTabLayout.setTabMode(TabLayout.MODE_FIXED);
         mClubDetailAdapter = new ClubDetailAdapter(getSupportFragmentManager(), mFragmentList, mTitles);
         mViewPager.setAdapter(mClubDetailAdapter);
