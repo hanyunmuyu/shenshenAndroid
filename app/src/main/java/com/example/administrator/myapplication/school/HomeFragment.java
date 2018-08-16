@@ -11,6 +11,7 @@ import android.util.ArrayMap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
@@ -48,15 +49,11 @@ public class HomeFragment extends BaseFragment {
     private int totalPage = 1;
     private HomeRecyclerViewAdapter homeRecyclerViewAdapter;
     private List<Map<String, Object>> mapArrayList;
-    private Handler mHandler = new Handler();
     @BindView(R.id.rv)
     public RecyclerView recyclerView;
-    @BindView(R.id.banner)
-    public Banner banner;
     @BindView(R.id.refreshLayout)
     public RefreshLayout refreshLayout;
-    @BindView(R.id.scrollView)
-    public ScrollView scrollView;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -68,29 +65,17 @@ public class HomeFragment extends BaseFragment {
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout r) {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        scrollView.fullScroll(ScrollView.FOCUS_UP);
-                    }
-                }, 200);
                 page = 1;
                 initData();
                 homeRecyclerViewAdapter.refresh();
+                refreshLayout.finishRefresh(500);
             }
         });
         refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
                 initData();
-                if (page >= 2) {
-                    mHandler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            scrollView.fullScroll(ScrollView.FOCUS_DOWN);
-                        }
-                    }, 100);
-                }
+                refreshLayout.finishLoadMore(500);
             }
         });
         initData();
@@ -98,13 +83,6 @@ public class HomeFragment extends BaseFragment {
     }
 
     private void initView() {
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                scrollView.fullScroll(ScrollView.FOCUS_UP);
-            }
-        }, 200);
-
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         mapArrayList = new ArrayList<>();
@@ -120,7 +98,6 @@ public class HomeFragment extends BaseFragment {
 
     private void initData() {
         if (page > totalPage) {
-            refreshLayout.finishLoadMore(500);
             return;
         }
         Call<SchoolRecommendBean> call = RetrofitManager.getInstance().getApiService().getSchoolRecommendList(page);
@@ -134,11 +111,6 @@ public class HomeFragment extends BaseFragment {
                     for (SchoolRecommendBean.DataBeanX.PlayerBean playerBean : schoolRecommendBean.getData().getPlayer()) {
                         stringList.add(playerBean.getImage());
                     }
-                    banner.setBannerStyle(BannerConfig.CENTER);
-                    banner.setImageLoader(new GlideImageLoader());
-                    //设置图片集合
-                    banner.setImages(stringList);
-                    banner.start();
                 }
                 totalPage = schoolRecommendBean.getData().getTotalPage();
                 List<Map<String, Object>> mapList = new ArrayList<>();
@@ -157,8 +129,6 @@ public class HomeFragment extends BaseFragment {
                 }
                 mapArrayList.addAll(mapList);
                 homeRecyclerViewAdapter.notifyDataSetChanged();
-                refreshLayout.finishRefresh(500);
-                refreshLayout.finishLoadMore(500);
                 page++;
             }
 
