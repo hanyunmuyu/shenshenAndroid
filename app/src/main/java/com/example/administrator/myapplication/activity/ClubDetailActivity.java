@@ -1,7 +1,4 @@
 package com.example.administrator.myapplication.activity;
-
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -27,7 +24,6 @@ import com.example.administrator.myapplication.lib.CropSquareTransformation;
 import com.example.administrator.myapplication.lib.RetrofitManager;
 import com.example.administrator.myapplication.lib.Token;
 import com.example.administrator.myapplication.model.QrCodeModel;
-import com.example.administrator.myapplication.myView.NineImageview;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -44,7 +40,7 @@ public class ClubDetailActivity extends FragmentActivity {
 
     @BindView(R.id.logo)
     public ImageView logo;
-    @BindView(R.id.tab)
+    @BindView(R.id.tl)
     public TabLayout mTabLayout;
     @BindView(R.id.vp)
     public ViewPager mViewPager;
