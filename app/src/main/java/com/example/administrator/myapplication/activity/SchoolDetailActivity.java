@@ -1,11 +1,13 @@
 package com.example.administrator.myapplication.activity;
 
 import android.content.Intent;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -62,6 +64,9 @@ public class SchoolDetailActivity extends FragmentActivity {
     public TextView attentionNumber;
     @BindView(R.id.clubBtn)
     public RelativeLayout clubBtn;
+
+    @BindView(R.id.toolbar)
+    public Toolbar mToolbar;
 
     private String[] mTitles = {"全部", "热门", "精华"};
     private SchoolDetailAdapter mSchoolDetailAdapter;
